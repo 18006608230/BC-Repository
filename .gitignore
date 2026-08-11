@@ -1,0 +1,61 @@
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+build/
+
+# Gradle files
+.gradle/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log Files
+*.log
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+.DS_Store
+captures/
+.externalNativeBuild
+.cxx
+
+# Keystore files
+*.jks
+*.keystore
+
+# OS files
+Thumbs.db
+
+# Local database / dev artifacts
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.db
+
+# Dev scratch / debug dumps (not source)
+cur.png
+verify_spinner.png
+db_main-wal
+dialog_scan.txt
+header_scan.txt
+qry_records.txt
+qry_schema.txt
+parse_nav.py
+ui.xml
+ui2.xml
+ui_parsed.txt

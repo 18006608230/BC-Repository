@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bc.app">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:name=".BrawnCatalogApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.BrawnCatalog">
+        
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.exercise.ExerciseListActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.exercise.BodyPartSubcategoryActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.exercise.ExerciseEditActivity"
+            android:parentActivityName=".ui.exercise.ExerciseListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.exercise.ExerciseDetailActivity"
+            android:parentActivityName=".ui.exercise.ExerciseListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.record.AddRecordActivity"
+            android:parentActivityName=".ui.exercise.ExerciseDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.timer.TimerActivity"
+            android:parentActivityName=".ui.exercise.ExerciseDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.stats.StatsActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.calendar.CalendarActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.plan.PlansActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.plan.PlanEditActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.plan.PlanDetailActivity"
+            android:parentActivityName=".ui.plan.PlansActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BrawnCatalog.PlanDetail" />
+
+        <activity
+            android:name=".ui.calendar.WorkoutActivity"
+            android:parentActivityName=".ui.calendar.CalendarActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.body.BodyMetricsActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

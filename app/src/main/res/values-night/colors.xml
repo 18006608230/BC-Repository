@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 暗黑模式配色 -->
+    <color name="window_background">#16181D</color>
+    <color name="home_page_bg">#16181D</color>
+    <color name="card_background">#1F2329</color>
+    <color name="bc_header_bg">#1B2A4A</color>  <!-- 首页顶部浅蓝背景（暗色下改为深蓝底） -->
+
+    <!-- 暗黑模式下主色提亮保证可读性 -->
+    <color name="bc_primary">#FF4C8DFF</color>
+    <color name="bc_primary_dark">#FF2A6BEE</color>
+    <color name="bc_primary_light">#FF6DA8FF</color>
+    <color name="bc_on_primary">#FF0B1220</color>
+    <color name="bc_gradient_start">#FF3D7BFF</color>
+    <color name="bc_gradient_end">#FF5B97FF</color>
+    <color name="bc_glow">#334C8DFF</color>
+
+    <color name="bc_accent">#FFFF8A65</color>
+    <color name="bc_accent_dark">#FFFF7043</color>
+    <color name="bc_on_accent">#FF33140A</color>
+
+    <!-- 暗黑模式文字层级 -->
+    <color name="bc_text_primary">#FFE6E8EB</color>
+    <color name="bc_text_secondary">#FF9BA1A8</color>
+    <color name="bc_text_disabled">#FF5C6066</color>
+
+    <!-- 暗黑模式输入框 -->
+    <color name="bc_input_bg">#FF1F2329</color>
+    <color name="bc_border">#FF33373E</color>
+    <color name="bc_border_focus">#FF4C8DFF</color>
+
+    <!-- 暗黑模式阴影（几乎不可见，靠卡片底色区分） -->
+    <color name="bc_shadow">#40000000</color>
+    <color name="bc_shadow_soft">#26000000</color>
+
+    <color name="purple_500">#FF4C8DFF</color>
+    <color name="purple_700">#FF2A6BEE</color>
+    <color name="teal_200">#FF4C8DFF</color>
+    <color name="teal_700">#FF2A6BEE</color>
+</resources>

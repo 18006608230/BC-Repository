@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 添加计划按钮：深蓝实心圆角底（更圆润灵动） -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/bc_primary" />
+    <corners android:radius="32dp" />
+</shape>

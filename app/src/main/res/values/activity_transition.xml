@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  iOS 风格 Activity 转场：
+  页面从右侧滑入（push），返回/关闭时原路滑出到右侧（pop）。
+  配合轻微透明度渐变，形成"从哪来，回哪去"的空间一致性。
+-->
+<resources>
+
+    <!-- 新页面从右滑入 -->
+    <style name="ActivityTransition" parent="android:Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+</resources>

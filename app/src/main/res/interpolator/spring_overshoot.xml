@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 弹簧回弹插值器：模拟 iOS 弹簧触感（带轻微 overshoot） -->
+<pathInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:pathData="M0,0 C0.32,0.72 0.1,1.15 0.5,1.05 C0.8,0.98 1,1 1,1" />

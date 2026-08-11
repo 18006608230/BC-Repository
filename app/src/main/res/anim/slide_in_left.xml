@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 返回时：下层页面从左侧归位（-28% -> 0%）并恢复亮度 -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@interpolator/bc_motion"
+    android:shareInterpolator="true">
+    <translate
+        android:fromXDelta="-28%"
+        android:toXDelta="0%"
+        android:duration="280" />
+    <alpha
+        android:fromAlpha="0.9"
+        android:toAlpha="1.0"
+        android:duration="280" />
+</set>

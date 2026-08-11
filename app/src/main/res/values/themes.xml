@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 亮色主题（默认） -->
+    <style name="Theme.BrawnCatalog" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/bc_primary</item>
+        <item name="colorPrimaryVariant">@color/bc_primary_dark</item>
+        <item name="colorOnPrimary">@color/bc_on_primary</item>
+        <item name="colorSecondary">@color/bc_accent</item>
+        <item name="colorSecondaryVariant">@color/bc_accent_dark</item>
+        <item name="colorOnSecondary">@color/bc_on_accent</item>
+
+        <!-- 默认文字颜色：深灰主文字 / 浅灰辅助 -->
+        <item name="android:textColorPrimary">@color/bc_text_primary</item>
+        <item name="android:textColorSecondary">@color/bc_text_secondary</item>
+
+        <!-- 窗口/背景 -->
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:statusBarColor">@color/window_background</item>
+        <item name="android:navigationBarColor">@color/window_background</item>
+
+        <!-- 卡片默认外观：16dp 圆角 + 浅灰弥散阴影 -->
+        <item name="materialCardViewStyle">@style/Widget.BrawnCatalog.Card</item>
+
+        <!-- 主按钮默认：蓝色渐变 + 14dp 圆角 + 外发光 -->
+        <item name="materialButtonStyle">@style/Widget.BrawnCatalog.Button.Primary</item>
+
+        <!-- 输入框默认：纯白底 + 细浅灰边框 + 12dp 圆角 -->
+        <item name="textInputStyle">@style/Widget.BrawnCatalog.TextInputLayout</item>
+
+        <!-- 系统弹窗（AlertDialog）统一为圆角白卡风格 -->
+        <item name="alertDialogTheme">@style/ThemeOverlay.BrawnCatalog.Dialog.Alert</item>
+        <item name="android:alertDialogTheme">@style/ThemeOverlay.BrawnCatalog.Dialog.Alert</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.BrawnCatalog.Dialog.Alert</item>
+
+        <!-- 页面转场：from 右滑入（配合 Theme 内 windowAnimationStyle 平滑曲线） -->
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <!-- 普通卡片弹窗主题：透明窗口 + 无阴影，内容本身是圆角白卡 -->
+    <style name="Theme.BrawnCatalog.CardDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowElevation">0dp</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+        <item name="colorPrimary">@color/bc_primary</item>
+        <item name="materialCardViewStyle">@style/Widget.BrawnCatalog.Card</item>
+        <item name="materialButtonStyle">@style/Widget.BrawnCatalog.Button.Primary</item>
+        <item name="textInputStyle">@style/Widget.BrawnCatalog.TextInputLayout</item>
+    </style>
+
+    <!-- AlertDialog 弹窗主题：圆角白卡 + 应用品牌色按钮，所有 delete/confirm 等系统弹窗统一风格 -->
+    <style name="ThemeOverlay.BrawnCatalog.Dialog.Alert" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:windowBackground">@drawable/bg_dialog_alert</item>
+        <item name="android:windowMinWidthMajor">85%</item>
+        <item name="android:windowMinWidthMinor">85%</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+        <item name="colorPrimary">@color/bc_primary</item>
+        <item name="colorPrimaryVariant">@color/bc_primary_dark</item>
+        <item name="colorOnPrimary">@color/bc_on_primary</item>
+        <item name="colorAccent">@color/bc_primary</item>
+        <item name="colorControlActivated">@color/bc_primary</item>
+        <item name="android:textColorPrimary">@color/bc_text_primary</item>
+        <item name="android:textColorSecondary">@color/bc_text_secondary</item>
+        <item name="materialButtonStyle">@style/Widget.BrawnCatalog.Button.Primary</item>
+    </style>
+
+    <!-- 计划详情主题：蓝色头部延伸到状态栏（状态栏同样是浅蓝 header 色，视觉无缝） -->
+    <style name="Theme.BrawnCatalog.PlanDetail" parent="Theme.BrawnCatalog">
+        <item name="android:statusBarColor">@color/bc_header_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- ===== 卡片样式：16dp 圆角 + 淡灰弥散阴影 + 12dp 间距由布局控制 ===== -->
+    <style name="Widget.BrawnCatalog.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/card_background</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <!-- ===== 主按钮：蓝色渐变 + 14dp 圆角 + 淡蓝外发光 ===== -->
+    <style name="Widget.BrawnCatalog.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/bg_button_primary</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textColor">@color/bc_on_primary</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:stateListAnimator">@animator/button_press_scale</item>
+        <item name="rippleColor">#33FFFFFF</item>
+        <item name="cornerRadius">14dp</item>
+        <item name="backgroundTint">@null</item>
+    </style>
+
+    <!-- ===== 输入框容器：纯白底 + 细浅灰边框 + 12dp 圆角 ===== -->
+    <style name="Widget.BrawnCatalog.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/bc_input_bg</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeColor">@color/bc_input_stroke</item>
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="hintTextColor">@color/bc_input_stroke</item>
+    </style>
+
+    <!-- Tab 标签栏样式：无边框，选中仅蓝色文字 + 底部下划线 -->
+    <style name="Widget.BrawnCatalog.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicatorColor">@color/bc_primary</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabSelectedTextColor">@color/bc_primary</item>
+        <item name="tabTextColor">@color/bc_text_primary</item>
+        <item name="tabRippleColor">@color/bc_ripple</item>
+        <item name="tabIndicatorFullWidth">false</item>
+    </style>
+</resources>

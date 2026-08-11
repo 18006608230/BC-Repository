@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 下层页面 push 时向左让位（0% -> -30%）并轻微压暗 -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@interpolator/bc_motion"
+    android:shareInterpolator="true">
+    <translate
+        android:fromXDelta="0%"
+        android:toXDelta="-28%"
+        android:duration="300" />
+    <alpha
+        android:fromAlpha="1.0"
+        android:toAlpha="0.9"
+        android:duration="300" />
+</set>

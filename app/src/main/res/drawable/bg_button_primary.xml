@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 主按钮：低饱和蓝色渐变 + 14dp 圆角 + 极淡蓝色外发光 -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#33FFFFFF">
+
+    <item>
+        <layer-list>
+            <!-- 外发光层（淡蓝弥散） -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/bc_glow" />
+                    <corners android:radius="14dp" />
+                    <padding
+                        android:bottom="3dp"
+                        android:left="3dp"
+                        android:right="3dp"
+                        android:top="3dp" />
+                </shape>
+            </item>
+            <!-- 渐变主体 -->
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="0"
+                        android:endColor="@color/bc_gradient_end"
+                        android:startColor="@color/bc_gradient_start" />
+                    <corners android:radius="14dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</ripple>

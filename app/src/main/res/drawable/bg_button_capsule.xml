@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 悬浮胶囊按钮：品牌蓝渐变 + 全圆角胶囊 + 极淡外发光 + 按压缩放由 animator 控制 -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#33FFFFFF">
+
+    <item>
+        <layer-list>
+            <!-- 外发光层（淡蓝弥散） -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/bc_glow" />
+                    <corners android:radius="28dp" />
+                    <padding
+                        android:bottom="4dp"
+                        android:left="3dp"
+                        android:right="3dp"
+                        android:top="4dp" />
+                </shape>
+            </item>
+            <!-- 渐变主体（胶囊：全圆角） -->
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="0"
+                        android:endColor="@color/bc_gradient_end"
+                        android:startColor="@color/bc_gradient_start" />
+                    <corners android:radius="28dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</ripple>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 输入框边框颜色：聚焦时变品牌蓝，默认极细浅灰 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/bc_border_focus" android:state_focused="true" />
+    <item android:color="@color/bc_border" />
+</selector>

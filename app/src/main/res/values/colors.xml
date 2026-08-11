@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ===== 设计规范配色（低饱和深蓝 + 中性灰阶） ===== -->
+    <!-- 品牌主色：低饱和深蓝 -->
+    <color name="bc_primary">#FF165DFF</color>          <!-- 主色（主按钮/标题/选中态） -->
+    <color name="bc_primary_dark">#FF0E42D2</color>     <!-- 更深主色变体（按压态） -->
+    <color name="bc_primary_light">#FF4080FF</color>    <!-- 浅主色（聚焦边框/渐变高光） -->
+    <color name="bc_primary_pale">#FFEAF2FF</color>    <!-- 极浅蓝（计时器快速设置钮底） -->
+    <color name="bc_on_primary">#FFFFFFFF</color>
+
+    <!-- 渐变用主色（主按钮渐变：深->浅） -->
+    <color name="bc_gradient_start">#FF165DFF</color>
+    <color name="bc_gradient_end">#FF4080FF</color>
+    <color name="bc_glow">#33165DFF</color>              <!-- 按钮外发光（淡蓝，20% 透明度） -->
+
+    <!-- 强调色：橙色（PR/高亮/峰值，保留） -->
+    <color name="bc_accent">#FFFF7043</color>
+    <color name="bc_accent_dark">#FFE64A19</color>
+    <color name="bc_on_accent">#FFFFFFFF</color>
+
+    <!-- ===== 背景与卡片 ===== -->
+    <color name="window_background">#FFF5F7FA</color>   <!-- 页面背景：浅灰蓝 -->
+    <color name="card_background">#FFFFFFFF</color>     <!-- 卡片：纯白 -->
+    <color name="home_page_bg">#FFF5F7FA</color>        <!-- 首页背景：与页面背景一致 -->
+    <color name="bc_header_bg">#FFEAF1FF</color>        <!-- 首页顶部区域浅蓝背景 -->
+
+    <!-- ===== 文字层级 ===== -->
+    <color name="bc_text_primary">#FF1D2129</color>     <!-- 主文字：深灰 -->
+    <color name="bc_text_secondary">#FF86909C</color>   <!-- 辅助文字：浅灰 -->
+    <color name="bc_text_disabled">#FFC9CDD4</color>
+
+    <!-- 输入框 / 边框 -->
+    <color name="bc_input_bg">#FFFFFFFF</color>         <!-- 输入框纯白底 -->
+    <color name="bc_border">#FFE5E8EF</color>           <!-- 极细浅灰边框 -->
+    <color name="bc_border_focus">#FF165DFF</color>     <!-- 聚焦时品牌蓝边框 -->
+
+    <!-- 涟漪按压反馈：半透明品牌蓝（点击瞬间反馈） -->
+    <color name="bc_ripple">#33165DFF</color>
+
+    <!-- 阴影（淡灰弥散，非黑） -->
+    <color name="bc_shadow">#1A1D2129</color>           <!-- 淡灰阴影（10% 深灰） -->
+    <color name="bc_shadow_soft">#0F1D2129</color>      <!-- 极淡阴影（6%） -->
+
+    <!-- 保留兼容旧命名（其它布局可能引用） -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF165DFF</color>
+    <color name="purple_700">#FF0E42D2</color>
+    <color name="teal_200">#FF165DFF</color>
+    <color name="teal_700">#FF0E42D2</color>
+    <color name="black">#FF1D2129</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 统一动效曲线：cubic-bezier(0.32, 0.72, 0, 1) -->
+<pathInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:pathData="M0,0 C0.32,0.72 0,1 1,1" />

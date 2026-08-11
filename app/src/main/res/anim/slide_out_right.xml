@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 返回时：当前页面原路滑出到右侧（0% -> 100%）并淡化 -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@interpolator/bc_motion"
+    android:shareInterpolator="true">
+    <translate
+        android:fromXDelta="0%"
+        android:toXDelta="100%"
+        android:duration="280" />
+    <alpha
+        android:fromAlpha="1.0"
+        android:toAlpha="0.55"
+        android:duration="280" />
+</set>
