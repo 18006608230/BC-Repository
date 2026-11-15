@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    计划详情 · 某训练日的动作卡片
+    横向卡：配图 + 动作名 + 组×次 + 箭头；点击进入动作详情
+-->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardBackgroundColor="?attr/bcCardBg"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- 动作配图（GIF 或自定义图片，无配图时隐藏） -->
+        <ImageView
+            android:id="@+id/imageViewExercise"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_image_thumb"
+            android:clipToOutline="true"
+            android:contentDescription="动作配图"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewExerciseName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:text="动作名称"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?attr/bcTextPrimary"
+            app:layout_constraintEnd_toStartOf="@+id/textViewChevron"
+            app:layout_constraintStart_toEndOf="@+id/imageViewExercise"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewSetsReps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="2dp"
+            android:text="4 组 × 12 次"
+            android:textSize="13sp"
+            android:textColor="?attr/bcTextSecondary"
+            app:layout_constraintEnd_toStartOf="@+id/textViewChevron"
+            app:layout_constraintStart_toEndOf="@+id/imageViewExercise"
+            app:layout_constraintTop_toBottomOf="@+id/textViewExerciseName" />
+
+        <TextView
+            android:id="@+id/textViewChevron"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="›"
+            android:textSize="26sp"
+            android:textColor="?attr/bcTextSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

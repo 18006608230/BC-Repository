@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主题配色：酒红（亮、不荧光） -->
+    <color name="th_red_primary">#AE2943</color>
+    <color name="th_red_primary_dark">#881B31</color>
+    <color name="th_red_primary_light">#D85A73</color>
+    <color name="th_red_primary_pale">#F4E1E5</color>
+    <color name="th_red_on_primary">#FFFFFF</color>
+    <color name="th_red_accent">#D345C0</color>
+    <color name="th_red_accent_dark">#BA2CA7</color>
+    <color name="th_red_on_accent">#FFFFFF</color>
+    <color name="th_red_window_bg">#F9F6F6</color>
+    <color name="th_red_card_bg">#F4E7E9</color>
+    <color name="th_red_header_bg">#EBCBD2</color>
+    <color name="th_red_home_page_bg">#F8F4F5</color>
+    <color name="th_red_text_primary">#0F1115</color>
+    <color name="th_red_text_secondary">#8A4251</color>
+    <color name="th_red_text_disabled">#9AA0A6</color>
+    <color name="th_red_border">#EAD7DB</color>
+    <color name="th_red_border_focus">#AE2943</color>
+    <color name="th_red_input_bg">#FFFFFF</color>
+    <color name="th_red_input_stroke">#D7C1C5</color>
+    <color name="th_red_gradient_start">#AE2943</color>
+    <color name="th_red_gradient_end">#D85A73</color>
+    <color name="th_red_glow">#40AE2943</color>
+    <color name="th_red_ripple">#33AE2943</color>
+</resources>

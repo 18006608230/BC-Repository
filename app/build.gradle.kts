@@ -65,6 +65,10 @@ dependencies {
     implementation(libs.recyclerview)
     implementation(libs.material)
 
+    // 图片加载（GIF 动图，支持 assets 离线加载）
+    implementation(libs.coil)
+    implementation(libs.coil.gif)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

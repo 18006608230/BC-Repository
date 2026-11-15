@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 统计 chip 描边颜色：选中 = 深主题色，未选中 = 浅边框 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="?attr/bcPrimary" />
+    <item android:color="?attr/bcBorder" />
+</selector>

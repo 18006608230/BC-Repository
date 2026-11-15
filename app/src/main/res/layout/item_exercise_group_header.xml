@@ -7,6 +7,6 @@
     android:paddingTop="14dp"
     android:paddingEnd="12dp"
     android:paddingBottom="4dp"
-    android:textColor="@color/bc_primary"
+    android:textColor="?attr/bcPrimary"
     android:textSize="14sp"
     android:textStyle="bold" />

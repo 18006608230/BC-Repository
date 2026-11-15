@@ -8,7 +8,7 @@
     android:layout_marginStart="6dp"
     android:layout_marginTop="10dp"
     android:layout_marginEnd="6dp"
-    app:cardBackgroundColor="@color/card_background"
+    app:cardBackgroundColor="?attr/bcCardBg"
     app:cardCornerRadius="18dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
@@ -18,19 +18,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- 部位名称 -->
         <TextView
             android:id="@+id/textViewBodyPartName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="20dp"
             android:text="部位名称"
-            android:textColor="@color/bc_text_primary"
+            android:textColor="?attr/bcPrimary"
             android:textSize="18sp"
             android:textStyle="bold"
             android:transitionName="sharedBodyPartTitle"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 部位副标题：覆盖肌群说明 -->
+        <TextView
+            android:id="@+id/textViewBodyPartDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="?attr/bcTextSecondary"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBodyPartName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

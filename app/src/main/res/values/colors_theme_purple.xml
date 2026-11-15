@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主题配色：深紫（亮、不荧光） -->
+    <color name="th_purple_primary">#7531B9</color>
+    <color name="th_purple_primary_dark">#5C2296</color>
+    <color name="th_purple_primary_light">#A36ED8</color>
+    <color name="th_purple_primary_pale">#EBE1F4</color>
+    <color name="th_purple_on_primary">#FFFFFF</color>
+    <color name="th_purple_accent">#CF45D3</color>
+    <color name="th_purple_accent_dark">#B52CBA</color>
+    <color name="th_purple_on_accent">#FFFFFF</color>
+    <color name="th_purple_window_bg">#F7F6F9</color>
+    <color name="th_purple_card_bg">#EDE7F4</color>
+    <color name="th_purple_header_bg">#DBCBEB</color>
+    <color name="th_purple_home_page_bg">#F6F4F8</color>
+    <color name="th_purple_text_primary">#0F1115</color>
+    <color name="th_purple_text_secondary">#66428A</color>
+    <color name="th_purple_text_disabled">#9AA0A6</color>
+    <color name="th_purple_border">#E0D7EA</color>
+    <color name="th_purple_border_focus">#7531B9</color>
+    <color name="th_purple_input_bg">#FFFFFF</color>
+    <color name="th_purple_input_stroke">#CCC1D7</color>
+    <color name="th_purple_gradient_start">#7531B9</color>
+    <color name="th_purple_gradient_end">#A36ED8</color>
+    <color name="th_purple_glow">#407531B9</color>
+    <color name="th_purple_ripple">#337531B9</color>
+</resources>

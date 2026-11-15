@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主题配色：爱马仕橙（亮、不荧光） -->
+    <color name="th_orange_primary">#DA7D3E</color>
+    <color name="th_orange_primary_dark">#C7621F</color>
+    <color name="th_orange_primary_light">#E9B18B</color>
+    <color name="th_orange_primary_pale">#F4E9E1</color>
+    <color name="th_orange_on_primary">#FFFFFF</color>
+    <color name="th_orange_accent">#D3AD45</color>
+    <color name="th_orange_accent_dark">#BA942C</color>
+    <color name="th_orange_on_accent">#FFFFFF</color>
+    <color name="th_orange_window_bg">#F9F7F6</color>
+    <color name="th_orange_card_bg">#F4ECE7</color>
+    <color name="th_orange_header_bg">#EBD8CB</color>
+    <color name="th_orange_home_page_bg">#F8F6F4</color>
+    <color name="th_orange_text_primary">#0F1115</color>
+    <color name="th_orange_text_secondary">#8A5F42</color>
+    <color name="th_orange_text_disabled">#9AA0A6</color>
+    <color name="th_orange_border">#EADFD7</color>
+    <color name="th_orange_border_focus">#DA7D3E</color>
+    <color name="th_orange_input_bg">#FFFFFF</color>
+    <color name="th_orange_input_stroke">#D7CAC1</color>
+    <color name="th_orange_gradient_start">#DA7D3E</color>
+    <color name="th_orange_gradient_end">#E9B18B</color>
+    <color name="th_orange_glow">#40DA7D3E</color>
+    <color name="th_orange_ripple">#33DA7D3E</color>
+</resources>

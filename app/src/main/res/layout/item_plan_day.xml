@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="?attr/bcCardBg"
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp">
 
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@color/bc_text_primary" />
+            android:textColor="?attr/bcTextPrimary" />
 
         <TextView
             android:id="@+id/textViewDayMeta"
@@ -27,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:textSize="12sp"
-            android:textColor="@color/bc_text_secondary" />
+            android:textColor="?attr/bcTextSecondary" />
 
         <TextView
             android:id="@+id/textViewDayExercises"
@@ -35,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="14sp"
-            android:textColor="@color/bc_text_secondary"
+            android:textColor="?attr/bcTextSecondary"
             android:lineSpacingExtra="4dp" />
     </LinearLayout>
 

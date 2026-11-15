@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 统计 chip 选中态背景：选中 = 主题浅版，未选中 = 透明 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="?attr/bcPrimaryPale" />
+    <item android:color="@android:color/transparent" />
+</selector>

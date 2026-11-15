@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    app:cardBackgroundColor="?attr/bcCardBg"
     app:cardCornerRadius="8dp"
     app:cardElevation="2dp">
 
@@ -18,7 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2024-01-01"
-            android:textSize="14sp"
+            android:textColor="?attr/bcPrimary"
+            android:textSize="15sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="60.0kg"
+            android:textColor="?attr/bcPrimary"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="4组"
-            android:textSize="14sp"
+            android:textColor="?attr/bcPrimary"
+            android:textSize="15sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textViewRecordWeight"
             app:layout_constraintStart_toEndOf="@+id/textViewRecordWeight"
             app:layout_constraintTop_toTopOf="@+id/textViewRecordWeight" />
@@ -50,7 +56,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="10次/组"
-            android:textSize="14sp"
+            android:textColor="?attr/bcPrimary"
+            android:textSize="15sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textViewRecordSets"
             app:layout_constraintStart_toEndOf="@+id/textViewRecordSets"
             app:layout_constraintTop_toTopOf="@+id/textViewRecordSets" />

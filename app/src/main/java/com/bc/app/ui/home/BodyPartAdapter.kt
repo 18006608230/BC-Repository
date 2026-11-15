@@ -58,6 +58,7 @@ class BodyPartAdapter(
 
         fun bind(bodyPart: BodyPart) {
             binding.textViewBodyPartName.text = bodyPart.name
+            binding.textViewBodyPartDesc.text = BodyPart.partDesc(bodyPart.name)
         }
     }
 

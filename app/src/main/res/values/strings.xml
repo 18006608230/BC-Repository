@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Brawn Catalog</string>
+
+    <!-- ===== 组间休息计时器 · 通知 ===== -->
+    <!-- 常驻通知渠道（低优先级：只展示倒计时，不响不震） -->
+    <string name="timer_channel_ongoing_name">组间休息计时</string>
+    <string name="timer_channel_ongoing_desc">训练时显示正在进行的组间休息倒计时</string>
+    <!-- 结束提醒渠道：只留一张可见卡片，震动由代码自行触发（穿透勿扰） -->
+    <string name="timer_channel_alert_name">休息结束提醒</string>
+    <string name="timer_channel_alert_desc">组间休息结束时提醒，震动由 App 自行触发</string>
+
+    <string name="timer_notification_title">组间休息</string>
+    <string name="timer_notification_counting">计时中</string>
+    <string name="timer_notification_paused">已暂停</string>
+
+    <string name="timer_action_pause">暂停</string>
+    <string name="timer_action_resume">继续</string>
+    <string name="timer_action_add15">+15 秒</string>
+    <string name="timer_action_stop">停止</string>
+
+    <string name="timer_finished_title">休息结束</string>
+    <string name="timer_finished_text">可以开始下一组了（已震动提醒）</string>
+    <string name="timer_vibration_test">震动测试：没感觉到请检查系统静音 / 勿扰设置</string>
 </resources>

@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 悬浮胶囊按钮：品牌蓝渐变 + 全圆角胶囊 + 极淡外发光 + 按压缩放由 animator 控制 -->
+<!--
+    悬浮胶囊按钮：深色主题色纯色 + 外圈浅色主题色 + 全圆角胶囊
+
+    与 bg_button_primary 同一套做法（深色纯色 + 浅色外圈），只是圆角做成胶囊。
+    按压缩放由 animator 控制。
+-->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="#33FFFFFF">
 
     <item>
         <layer-list>
-            <!-- 外发光层（淡蓝弥散） -->
+            <!-- 外圈：浅色主题色 -->
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="@color/bc_glow" />
-                    <corners android:radius="28dp" />
+                    <solid android:color="?attr/bcPrimaryLight" />
+                    <corners android:radius="30dp" />
                     <padding
-                        android:bottom="4dp"
-                        android:left="3dp"
-                        android:right="3dp"
-                        android:top="4dp" />
+                        android:bottom="2dp"
+                        android:left="2dp"
+                        android:right="2dp"
+                        android:top="2dp" />
                 </shape>
             </item>
-            <!-- 渐变主体（胶囊：全圆角） -->
+            <!-- 主体：深色主题色纯色（胶囊：全圆角） -->
             <item>
                 <shape android:shape="rectangle">
-                    <gradient
-                        android:angle="0"
-                        android:endColor="@color/bc_gradient_end"
-                        android:startColor="@color/bc_gradient_start" />
+                    <solid android:color="?attr/bcPrimaryDark" />
                     <corners android:radius="28dp" />
                 </shape>
             </item>

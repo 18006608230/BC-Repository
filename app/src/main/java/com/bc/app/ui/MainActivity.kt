@@ -1,8 +1,9 @@
 package com.bc.app.ui
 
+import com.bc.app.ui.base.BaseActivity
+
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.bc.app.databinding.ActivityMainBinding
 import com.bc.app.ui.home.HomeActivity
 
@@ -10,7 +11,7 @@ import com.bc.app.ui.home.HomeActivity
  * 启动页Activity
  * 跳转到首页
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
 

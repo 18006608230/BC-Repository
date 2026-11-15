@@ -26,28 +26,113 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- 动作基本信息 -->
+            <!-- 动作基本信息：名称 + 收藏小五角星（packed 链整体居中，单独星标） -->
             <TextView
                 android:id="@+id/textViewExerciseName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="动作名称"
+                android:textColor="?attr/bcPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintEnd_toStartOf="@+id/buttonFavorite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textViewExerciseTips"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="动作要领"
-                android:textSize="14sp"
+            <ImageButton
+                android:id="@+id/buttonFavorite"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="6dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="收藏"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_star_outline"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewExerciseName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewExerciseName"
+                app:layout_constraintTop_toTopOf="@+id/textViewExerciseName" />
+
+            <!-- 动作配图（GIF，assets/exercise_images/；无配图时隐藏）。
+                 数据集 GIF 为方形图，用固定正方形 200x200 居中 + centerCrop，
+                 避免被非方形区域裁切，保证动作完整可见。 -->
+            <ImageView
+                android:id="@+id/imageViewExercise"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="12dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/bg_image_thumb"
+                android:clipToOutline="true"
+                android:contentDescription="动作配图"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewExerciseName" />
+
+            <!-- 动作详情（来源数据集的中文说明：英文名 / 目标肌群 / 次要肌群 / 分步要领） -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardExerciseInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="?attr/bcCardBg"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewExercise">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📋 动作详情"
+                        android:textColor="?attr/bcPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textViewNameEn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="?attr/bcTextSecondary"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/textViewTarget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="?attr/bcTextPrimary"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/textViewSecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="?attr/bcTextSecondary"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/textViewSteps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="?attr/bcTextPrimary"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- 个人纪录（PR）卡片 -->
             <com.google.android.material.card.MaterialCardView
@@ -55,11 +140,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                app:cardBackgroundColor="?attr/bcCardBg"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewExerciseTips">
+                app:layout_constraintTop_toBottomOf="@+id/cardExerciseInfo">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -71,7 +157,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="🏆 个人纪录"
-                        android:textSize="14sp"
+                        android:textColor="?attr/bcPrimary"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -169,6 +256,83 @@
 
             </LinearLayout>
 
+            <!-- 进步趋势：有氧动作与不足 2 次记录时由代码隐藏 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardTrend"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="?attr/bcCardBg"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutActions">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📈 进步趋势"
+                        android:textColor="?attr/bcPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupTrendMetric"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:chipSpacingHorizontal="8dp"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipMetricOneRm"
+                            style="@style/Widget.BrawnCatalog.Chip.Range"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="估算 1RM" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipMetricWeight"
+                            style="@style/Widget.BrawnCatalog.Chip.Range"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="最大重量" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipMetricVolume"
+                            style="@style/Widget.BrawnCatalog.Chip.Range"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="总容量" />
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <com.bc.app.ui.stats.LineChartView
+                        android:id="@+id/lineChartTrend"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:id="@+id/textTrendSummary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:lineSpacingExtra="3dp"
+                        android:textColor="?attr/bcTextPrimary"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <!-- 训练历史标题（去掉分割线，用留白分隔） -->
             <TextView
                 android:id="@+id/textViewRecordsTitle"
@@ -176,10 +340,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="训练历史"
+                android:textColor="?attr/bcPrimaryDark"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutActions" />
+                app:layout_constraintTop_toBottomOf="@+id/cardTrend" />
 
             <!-- 历史记录列表 -->
             <androidx.recyclerview.widget.RecyclerView
@@ -210,7 +375,7 @@
         android:paddingEnd="26dp"
         android:stateListAnimator="@animator/button_press_scale"
         android:text="＋ 添加训练"
-        android:textColor="@color/bc_on_primary"
+        android:textColor="?attr/bcOnPrimary"
         android:textSize="15sp"
         android:textStyle="bold"
         app:backgroundTint="@null"

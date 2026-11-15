@@ -70,7 +70,8 @@ object BackupManager {
             database.bodyPartDao().insertAll(backup.bodyParts)
         }
         if (backup.exercises.isNotEmpty()) {
-            database.exerciseDao().insertAll(backup.exercises)
+            // 旧版本备份没有 v7 新增字段，Gson 会写入 null，需补默认值避免 NOT NULL 约束失败
+            database.exerciseDao().insertAll(backup.exercises.map { it.normalizedForImport() })
         }
         if (backup.trainingRecords.isNotEmpty()) {
             database.trainingRecordDao().insertAll(backup.trainingRecords)
@@ -87,4 +88,19 @@ object BackupManager {
 
         return backup
     }
+
+    /** Gson 反序列化旧备份时缺失字段会是 null，这里统一补空串 */
+    private fun com.bc.app.data.entity.Exercise.normalizedForImport(): com.bc.app.data.entity.Exercise =
+        copy(
+            name = orEmpty(name),
+            tips = orEmpty(tips),
+            subcategory = orEmpty(subcategory),
+            nameEn = orEmpty(nameEn),
+            target = orEmpty(target),
+            secondaryMuscles = orEmpty(secondaryMuscles),
+            steps = orEmpty(steps),
+            note = orEmpty(note)
+        )
+
+    private fun orEmpty(v: String?): String = v ?: ""
 }

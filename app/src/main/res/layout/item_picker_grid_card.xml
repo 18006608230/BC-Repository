@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    动作选择器 · 部位 / 子分类的方形卡片（3 列网格）
+    与主页部位卡片风格一致：圆角、主题卡片底色、深主题色加粗标题
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardPickerGrid"
+    android:layout_width="match_parent"
+    android:layout_height="92dp"
+    android:layout_margin="6dp"
+    app:cardBackgroundColor="?attr/bcCardBg"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+
+        <!-- 卡片标题：部位名 / 子分类名 -->
+        <TextView
+            android:id="@+id/textViewPickerCardTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="胸部"
+            android:textColor="?attr/bcPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- 卡片副标题：动作数 / 分类说明，空时隐藏 -->
+        <TextView
+            android:id="@+id/textViewPickerCardDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="?attr/bcTextSecondary"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

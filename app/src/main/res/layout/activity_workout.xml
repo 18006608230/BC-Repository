@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/bc_header_bg">
+    android:background="?attr/bcHeaderBg">
 
     <!-- 训练头 -->
     <LinearLayout
@@ -36,7 +36,7 @@
                 android:text="训练进行中"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="@color/bc_text_primary" />
+                android:textColor="?attr/bcTextPrimary" />
         </LinearLayout>
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="13sp"
-            android:textColor="@color/bc_text_secondary" />
+            android:textColor="?attr/bcTextSecondary" />
 
         <TextView
             android:id="@+id/textViewWorkoutMeta"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
-            android:textColor="@color/bc_text_secondary" />
+            android:textColor="?attr/bcTextSecondary" />
     </LinearLayout>
 
     <!-- 动作执行列表 -->
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@color/bc_header_bg">
+        android:background="?attr/bcHeaderBg">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonFinishWorkout"
@@ -81,8 +81,7 @@
             android:layout_height="56dp"
             android:text="完成训练"
             android:textSize="16sp"
-            app:backgroundTint="@color/bc_primary"
-            android:textColor="@color/white" />
+            android:textColor="?attr/bcOnPrimary" />
     </LinearLayout>
 
 </LinearLayout>

@@ -13,6 +13,7 @@ material = "1.11.0"
 junit = "4.13.2"
 androidx-junit = "1.1.5"
 espresso = "3.5.1"
+coil = "2.5.0"
 
 [libraries]
 # Kotlin Coroutines
@@ -41,6 +42,10 @@ material = { group = "com.google.android.material", name = "material", version.r
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-junit" }
 espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
+
+# 图片加载（GIF 动图，支持从 assets 加载，个人使用）
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+coil-gif = { group = "io.coil-kt", name = "coil-gif", version.ref = "coil" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

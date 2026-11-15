@@ -2,6 +2,6 @@
 <!-- 系统弹窗（AlertDialog）的圆角白卡背景，契合整体卡片设计 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/card_background" />
+    <solid android:color="?attr/bcCardBg" />
     <corners android:radius="20dp" />
 </shape>

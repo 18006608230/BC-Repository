@@ -91,4 +91,32 @@ class ExerciseRepository(private val exerciseDao: ExerciseDao) {
     suspend fun getCount(): Int {
         return exerciseDao.getCount()
     }
+
+    /**
+     * 切换收藏状态（v9 收藏功能）。favorite=true 表示收藏。
+     */
+    suspend fun setFavorite(id: Long, favorite: Boolean) {
+        exerciseDao.updateFavorite(id, if (favorite) 1 else 0)
+    }
+
+    /**
+     * 指定部位下各子分类计数（数据驱动子分类卡片）
+     */
+    fun countBySubcategory(bodyPartId: Long): Flow<List<com.bc.app.data.dao.StringCount>> {
+        return exerciseDao.countBySubcategory(bodyPartId)
+    }
+
+    /**
+     * 全库搜索（动作列表页搜索框：中文名 / 英文名 / 目标肌群 / 次要肌群）
+     */
+    fun searchAll(query: String): Flow<List<Exercise>> {
+        return exerciseDao.searchAll(query)
+    }
+
+    /**
+     * 部位内搜索（动作列表页搜索框：限定当前部位）
+     */
+    fun searchInBodyPart(bodyPartId: Long, query: String): Flow<List<Exercise>> {
+        return exerciseDao.searchInBodyPart(bodyPartId, query)
+    }
 }

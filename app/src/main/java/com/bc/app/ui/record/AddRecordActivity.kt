@@ -1,38 +1,28 @@
 package com.bc.app.ui.record
 
+import com.bc.app.ui.base.BaseActivity
+
 import android.app.Dialog
 import android.os.Bundle
-import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.bc.app.R
 import com.bc.app.data.db.BrawnCatalogDatabase
 import com.bc.app.data.entity.Exercise
-import com.bc.app.data.entity.SetDetail
 import com.bc.app.data.entity.TrainingRecord
 import com.bc.app.data.repository.ExerciseRepository
 import com.bc.app.data.repository.TrainingRecordRepository
 import com.bc.app.databinding.ActivityAddRecordBinding
-import com.bc.app.databinding.ItemSetDetailBinding
-import com.bc.app.R
-import com.bc.app.ui.plate.PlateCalculatorDialog
-import com.bc.app.utils.JsonUtils
 import com.bc.app.utils.OneRmCalculator
 import kotlinx.coroutines.launch
 
 /**
- * 新增训练记录页
- * 支持双颗粒度：
- *  - 快速记录：填写重量/组数/平均次数
- *  - 专业逐组：逐组填写每组重量/次数/RPE
- * 有氧动作：简化记录，只填总时长，不做逐组/杠铃片
+ * 新增训练记录页（仅「快速记录」：重量/组数/平均次数）
+ * 有氧动作：只填总时长（分钟）
  */
-class AddRecordActivity : AppCompatActivity() {
+class AddRecordActivity : BaseActivity() {
 
     companion object {
         const val EXTRA_EXERCISE_ID = "extra_exercise_id"
@@ -47,9 +37,6 @@ class AddRecordActivity : AppCompatActivity() {
 
     // 是否为有氧动作（bodyPartId=7），有氧记录只填总时长
     private var isCardio: Boolean = false
-
-    // 专业模式的逐组行绑定列表
-    private val setDetailBindings = mutableListOf<ItemSetDetailBinding>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,126 +74,32 @@ class AddRecordActivity : AppCompatActivity() {
         val ex = exerciseRepository.getById(exerciseId)
         isCardio = ex?.bodyPartId == Exercise.CARDIO_BODY_PART_SORT
         if (isCardio) {
-            // 有氧：隐藏模式切换、杠铃片计算器、重量/组数/平均次数；显示总时长
-            binding.toggleGroupMode.visibility = View.GONE
-            binding.buttonPlateCalculator.visibility = View.GONE
+            // 有氧：隐藏力量表单；显示总时长
             binding.layoutQuickMode.visibility = View.GONE
-            binding.layoutProMode.visibility = View.GONE
             binding.textInputDuration.visibility = View.VISIBLE
         }
     }
 
     /**
-     * 加载上次记录并预填表单
+     * 加载上次记录并预填表单（仅快速模式 / 有氧两种）
      */
     private suspend fun loadLastRecord() {
         val lastRecord = trainingRecordRepository.getLatestByExerciseId(exerciseId)
-            lastRecord?.let {
-                // 有氧：预填总时长（时长存在 weight 字段中）；不做逐组/重量预填
-                if (isCardio) {
-                    binding.editTextDuration.setText(it.weight.takeIf { w -> w > 0 }?.toInt()?.toString() ?: "")
-                    return
-                }
-                // 如果上次是专业记录，切到专业模式并预填
-                if (it.isProfessionalRecord()) {
-                    binding.toggleGroupMode.check(binding.buttonProMode.id)
-                    switchToProMode(true)
-                    val details = it.setDetails?.let { d -> JsonUtils.jsonToSetDetails(d) }
-                    if (!details.isNullOrEmpty()) {
-                        setDetailBindings.forEach { b ->
-                            binding.containerSetDetails.removeView(b.root)
-                        }
-                        setDetailBindings.clear()
-                        details.forEach { d -> addSetRow(d) }
-                    }
-                } else {
-                    binding.editTextWeight.setText(it.weight.toString())
-                    binding.editTextSets.setText(it.sets.toString())
-                    binding.editTextAvgReps.setText(it.avgReps.toString())
-                }
+        lastRecord?.let {
+            if (isCardio) {
+                binding.editTextDuration.setText(it.weight.takeIf { w -> w > 0 }?.toInt()?.toString() ?: "")
+                return
             }
+            // 快速记录
+            binding.editTextWeight.setText(it.weight.toString())
+            binding.editTextSets.setText(it.sets.toString())
+            binding.editTextAvgReps.setText(it.avgReps.toString())
+        }
     }
 
     private fun setupListeners() {
-        binding.buttonAddSet.setOnClickListener {
-            addSetRow(null)
-        }
-
-        // 模式切换
-        binding.toggleGroupMode.addOnButtonCheckedListener { _, checkedId, isChecked ->
-            if (isChecked) {
-                switchToProMode(checkedId == binding.buttonProMode.id)
-            }
-        }
-
         binding.buttonSaveRecord.setOnClickListener {
             saveRecord()
-        }
-
-        // 杠铃片计算器（iOS 风格底部弹层，带动毛玻璃背景）
-        binding.buttonPlateCalculator.setOnClickListener {
-            PlateCalculatorDialog(this).show()
-        }
-    }
-
-    private fun switchToProMode(isPro: Boolean) {
-        binding.layoutQuickMode.visibility = if (isPro) View.GONE else View.VISIBLE
-        binding.layoutProMode.visibility = if (isPro) View.VISIBLE else View.GONE
-        if (isPro && setDetailBindings.isEmpty()) {
-            addSetRow(null)
-        }
-    }
-
-    /**
-     * 添加一组逐组明细行
-     */
-    private fun addSetRow(prefill: SetDetail?) {
-        val rowBinding = ItemSetDetailBinding.inflate(LayoutInflater.from(this), binding.containerSetDetails, false)
-        val rowNumber = setDetailBindings.size + 1
-        rowBinding.textSetNumber.text = "第${rowNumber}组"
-
-        prefill?.let { d ->
-            rowBinding.editSetWeight.setText(d.weight.takeIf { it > 0 }?.toString() ?: "")
-            rowBinding.editSetReps.setText(d.reps.takeIf { it > 0 }?.toString() ?: "")
-            rowBinding.editSetRpe.setText(d.rpe?.toString() ?: "")
-        }
-
-        // 输入时实时更新估算 1RM
-        val updateOneRm = {
-            val w = rowBinding.editSetWeight.text.toString().toFloatOrNull()
-            val r = rowBinding.editSetReps.text.toString().toIntOrNull()
-            val oneRm = if (w != null && r != null) OneRmCalculator.estimate(w, r) else 0f
-            rowBinding.textSetOneRm.text = "估算 1RM: ${OneRmCalculator.format(oneRm)}"
-        }
-        rowBinding.editSetWeight.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: android.text.Editable?) = updateOneRm()
-            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
-            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
-        })
-        rowBinding.editSetReps.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: android.text.Editable?) = updateOneRm()
-            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
-            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
-        })
-        updateOneRm()
-
-        rowBinding.buttonRemoveSet.setOnClickListener {
-            binding.containerSetDetails.removeView(rowBinding.root)
-            setDetailBindings.remove(rowBinding)
-            renumberRows()
-        }
-
-        binding.containerSetDetails.addView(rowBinding.root)
-        setDetailBindings.add(rowBinding)
-        renumberRows()
-    }
-
-    /**
-     * 重新编号所有组行
-     */
-    private fun renumberRows() {
-        setDetailBindings.forEachIndexed { index, b ->
-            b.textSetNumber.text = "第${index + 1}组"
         }
     }
 
@@ -216,15 +109,7 @@ class AddRecordActivity : AppCompatActivity() {
             saveCardioRecord()
             return
         }
-
-        // 判断当前模式
-        val isProMode = binding.toggleGroupMode.checkedButtonId == binding.buttonProMode.id
-
-        if (isProMode) {
-            saveProRecord()
-        } else {
-            saveQuickRecord()
-        }
+        saveQuickRecord()
     }
 
     /**
@@ -251,10 +136,8 @@ class AddRecordActivity : AppCompatActivity() {
         insertRecord(record, isCardio = true)
     }
 
-
-
     /**
-     * 保存快速模式记录
+     * 保存快速记录
      */
     private fun saveQuickRecord() {
         val weightStr = binding.editTextWeight.text.toString()
@@ -278,54 +161,6 @@ class AddRecordActivity : AppCompatActivity() {
             sets = sets,
             avgReps = avgReps,
             remark = remark
-        )
-        insertRecord(record)
-    }
-
-    /**
-     * 保存专业模式记录
-     */
-    private fun saveProRecord() {
-        // 收集每组的有效数据
-        val details = mutableListOf<SetDetail>()
-        setDetailBindings.forEachIndexed { index, b ->
-            val w = b.editSetWeight.text.toString().toFloatOrNull()
-            val r = b.editSetReps.text.toString().toIntOrNull()
-            // 跳过完全空白的行
-            if (w == null && r == null) return@forEachIndexed
-            if (w == null || r == null) {
-                Toast.makeText(this, "第${index + 1}组数据不完整", Toast.LENGTH_SHORT).show()
-                return
-            }
-            details.add(
-                SetDetail(
-                    setNumber = index + 1,
-                    weight = w,
-                    reps = r,
-                    rpe = b.editSetRpe.text.toString().toIntOrNull()
-                )
-            )
-        }
-
-        if (details.isEmpty()) {
-            Toast.makeText(this, "请至少填写一组数据", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // 汇总统计数据
-        val avgWeight = details.map { it.weight }.average().toFloat()
-        val avgReps = details.map { it.reps }.average().toInt()
-        val remark = binding.editTextRemark.text.toString()
-
-        val record = TrainingRecord(
-            exerciseId = exerciseId,
-            date = System.currentTimeMillis(),
-            weight = avgWeight,
-            sets = details.size,
-            avgReps = avgReps,
-            remark = remark,
-            setDetails = JsonUtils.setDetailsToJson(details),
-            rpe = details.mapNotNull { it.rpe }.takeIf { it.isNotEmpty() }?.average()?.toInt()
         )
         insertRecord(record)
     }
@@ -381,21 +216,21 @@ class AddRecordActivity : AppCompatActivity() {
         }
 
         val dlg = Dialog(this, R.style.Theme_BrawnCatalog_CardDialog)
-        dlg.setContentView(com.bc.app.R.layout.dialog_pr_celebration)
+        dlg.setContentView(R.layout.dialog_pr_celebration)
         dlg.window?.apply {
             setLayout(
                 (resources.displayMetrics.widthPixels * 0.9f).toInt(),
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            setBackgroundDrawableResource(com.bc.app.R.drawable.bg_dialog_card)
+            setBackgroundDrawableResource(R.drawable.bg_dialog_card)
         }
 
-        dlg.findViewById<android.widget.TextView>(com.bc.app.R.id.textPrTitle)?.text = title
-        dlg.findViewById<android.widget.TextView>(com.bc.app.R.id.textPrMessage)?.text = msg
-        dlg.findViewById<View>(com.bc.app.R.id.buttonClose)?.setOnClickListener {
+        dlg.findViewById<android.widget.TextView>(R.id.textPrTitle)?.text = title
+        dlg.findViewById<android.widget.TextView>(R.id.textPrMessage)?.text = msg
+        dlg.findViewById<View>(R.id.buttonClose)?.setOnClickListener {
             dlg.dismiss(); finish()
         }
-        dlg.findViewById<View>(com.bc.app.R.id.buttonPrConfirm)?.setOnClickListener {
+        dlg.findViewById<View>(R.id.buttonPrConfirm)?.setOnClickListener {
             dlg.dismiss(); finish()
         }
 

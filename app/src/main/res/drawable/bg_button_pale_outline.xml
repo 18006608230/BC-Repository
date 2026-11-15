@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    首页「计时器」按钮：浅色主题色填充 + 深色主题色描边 + 16dp 圆角
+
+    为什么不直接用 MaterialButton 的 strokeColor / strokeWidth：
+    全局 materialButtonStyle 里设了 `android:background`，而 MaterialButton
+    一旦用了自定义背景，strokeColor / strokeWidth 就**不再生效**（描边是画在它
+    自带的 MaterialShapeDrawable 上的）。所以这里把描边写进 drawable 自己，
+    并把 backgroundTint 置空，避免主题色把填充盖掉。
+-->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/bcRipple">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="?attr/bcPrimaryPale" />
+            <stroke
+                android:width="2dp"
+                android:color="?attr/bcPrimaryDark" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+</ripple>

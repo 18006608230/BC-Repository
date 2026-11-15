@@ -47,6 +47,7 @@ class LineChartView @JvmOverloads constructor(
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textSize = 11f * resources.displayMetrics.density
         textAlign = Paint.Align.CENTER
+        isFakeBoldText = true
     }
 
     init {
@@ -61,18 +62,24 @@ class LineChartView @JvmOverloads constructor(
     private fun readThemeColors() {
         val tv = TypedValue()
         val theme = context.theme
-        if (theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, tv, true)) {
+        // 线条 / 圆点用主题主色
+        if (theme.resolveAttribute(com.bc.app.R.attr.bcPrimary, tv, true)) {
             lineColor = tv.data
         }
-        // 背景底色（windowBackground）判断亮暗，决定文字/网格颜色
-        var isDark = false
-        if (theme.resolveAttribute(android.R.attr.colorBackground, tv, true)) {
-            val bc = tv.data
-            isDark = Color.luminance(bc) < 0.5f
+        // 文字与网格统一使用主题深色 + 加粗：自动跟随 bcPrimary
+        textColor = lineColor
+        // 网格用次主题色（深色 + 透明）作为柔和底纹
+        if (theme.resolveAttribute(com.bc.app.R.attr.bcTextSecondary, tv, true)) {
+            val base = tv.data
+            gridColor = (base and 0x00FFFFFF) or 0x14000000
         }
-        textColor = if (isDark) Color.argb(200, 230, 230, 230) else Color.argb(180, 0, 0, 0)
-        gridColor = if (isDark) Color.argb(45, 255, 255, 255) else Color.argb(40, 0, 0, 0)
         applyColors()
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        // 进入屏幕时刷新主题颜色（防止主题切换 recreate 后属性延迟读到）
+        readThemeColors()
     }
 
     private fun applyColors() {

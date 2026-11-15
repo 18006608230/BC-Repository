@@ -1,12 +1,17 @@
 package com.bc.app.ui.settings
 
+import com.bc.app.ui.base.BaseActivity
+
 import android.app.Activity
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.bc.app.R
 import com.bc.app.data.backup.BackupManager
 import com.bc.app.data.db.BrawnCatalogDatabase
 import com.bc.app.databinding.ActivitySettingsBinding
@@ -18,9 +23,9 @@ import java.io.IOException
 
 /**
  * 设置页
- * 提供：暗黑模式切换、数据备份与恢复
+ * 提供：颜色主题选择（8 种低饱和度配色）、数据备份与恢复
  */
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
 
@@ -28,6 +33,8 @@ class SettingsActivity : AppCompatActivity() {
         private const val REQUEST_EXPORT = 1001
         private const val REQUEST_IMPORT = 1002
         private const val MIME_JSON = "application/json"
+        private const val SWATCH_SIZE_DP = 40
+        private const val SWATCH_MARGIN_DP = 10
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,28 +42,73 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 页面返回按钮
         binding.buttonBack.setOnClickListener { finish() }
 
-        setupDarkModeToggle()
+        setupThemePicker()
         setupBackupButtons()
     }
 
-    private fun setupDarkModeToggle() {
-        val isDark = SettingsUtils.isDarkMode(this)
-        binding.switchDarkMode.isChecked = isDark
+    /**
+     * 渲染 8 个主题色块；点击切换主题并 recreate 当前页面。
+     */
+    private fun setupThemePicker() {
+        val current = SettingsUtils.getTheme(this)
+        binding.textCurrentTheme.text = "当前：${current.label}"
 
-        binding.switchDarkMode.setOnCheckedChangeListener { _, checked ->
-            SettingsUtils.setDarkMode(this, checked)
-            SettingsUtils.applyTheme(application, checked)
-            // 重建当前界面以应用主题
-            recreate()
+        val density = resources.displayMetrics.density
+        val size = (SWATCH_SIZE_DP * density).toInt()
+        val margin = (SWATCH_MARGIN_DP * density).toInt()
+
+        binding.themeSwatchContainer.removeAllViews()
+        SettingsUtils.Theme.entries.forEach { theme ->
+            val swatch = View(this).apply {
+                layoutParams = android.widget.LinearLayout.LayoutParams(size, size).apply {
+                    setMargins(margin, 0, margin, 0)
+                }
+                background = androidx.core.content.ContextCompat.getDrawable(
+                    this@SettingsActivity,
+                    if (theme == current) R.drawable.bg_theme_swatch_selected
+                    else R.drawable.bg_theme_swatch
+                )
+                backgroundTintList = ColorStateList.valueOf(resolveThemeColor(theme, R.attr.bcPrimary))
+                contentDescription = theme.label
+                setOnClickListener {
+                    if (SettingsUtils.getTheme(this@SettingsActivity) != theme) {
+                        SettingsUtils.setTheme(this@SettingsActivity, theme)
+                        recreate()
+                    }
+                }
+            }
+            binding.themeSwatchContainer.addView(swatch)
         }
+    }
+
+    /**
+     * 用指定主题的 styleRes 解析主题属性（如各主题的 bcPrimary），用于给色块染色
+     */
+    private fun resolveThemeColor(theme: SettingsUtils.Theme, attrRes: Int): Int {
+        val themedContext = android.view.ContextThemeWrapper(this, theme.styleRes)
+        val tv = TypedValue()
+        return if (themedContext.theme.resolveAttribute(attrRes, tv, true)) tv.data
+        else android.graphics.Color.GRAY
     }
 
     private fun setupBackupButtons() {
         binding.buttonExport.setOnClickListener { launchExportPicker() }
         binding.buttonImport.setOnClickListener { launchImportPicker() }
+        // 关于 彩蛋：点击弹出"BC牛逼"
+        binding.textViewAbout.setOnClickListener { showBcNiuBi() }
+    }
+
+    /**
+     * 彩蛋弹窗：点击「关于」时显示 —— 无标题，主文字 BC 牛逼 占满弹窗宽度 80%
+     */
+    private fun showBcNiuBi() {
+        val view = layoutInflater.inflate(com.bc.app.R.layout.dialog_easter_egg, null)
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setView(view)
+            .setPositiveButton("低调低调", null)
+            .show()
     }
 
     /**
@@ -92,9 +144,6 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * 执行数据导出
-     */
     private fun performExport(uri: Uri) {
         setBackupStatus("正在导出…")
         lifecycleScope.launch {
@@ -114,11 +163,7 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * 执行数据导入
-     */
     private fun performImport(uri: Uri) {
-        // 二次确认，避免误操作覆盖现有数据
         androidx.appcompat.app.AlertDialog.Builder(this)
             .setTitle("导入备份")
             .setMessage("导入将清空当前全部数据并恢复为备份内容，确定继续吗？")

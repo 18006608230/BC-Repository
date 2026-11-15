@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主题配色：深绿（亮、不荧光） -->
+    <color name="th_green_primary">#30A661</color>
+    <color name="th_green_primary_dark">#218349</color>
+    <color name="th_green_primary_light">#61D190</color>
+    <color name="th_green_primary_pale">#E1F4E9</color>
+    <color name="th_green_on_primary">#FFFFFF</color>
+    <color name="th_green_accent">#45D3C8</color>
+    <color name="th_green_accent_dark">#2CBAAE</color>
+    <color name="th_green_on_accent">#FFFFFF</color>
+    <color name="th_green_window_bg">#F6F9F7</color>
+    <color name="th_green_card_bg">#E7F4EC</color>
+    <color name="th_green_header_bg">#CBEBD9</color>
+    <color name="th_green_home_page_bg">#F4F8F6</color>
+    <color name="th_green_text_primary">#0F1115</color>
+    <color name="th_green_text_secondary">#428A60</color>
+    <color name="th_green_text_disabled">#9AA0A6</color>
+    <color name="th_green_border">#D7EADF</color>
+    <color name="th_green_border_focus">#30A661</color>
+    <color name="th_green_input_bg">#FFFFFF</color>
+    <color name="th_green_input_stroke">#C1D7CA</color>
+    <color name="th_green_gradient_start">#30A661</color>
+    <color name="th_green_gradient_end">#61D190</color>
+    <color name="th_green_glow">#4030A661</color>
+    <color name="th_green_ripple">#3330A661</color>
+</resources>

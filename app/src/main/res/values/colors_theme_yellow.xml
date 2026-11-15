@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主题配色：日落黄（亮、不荧光） -->
+    <color name="th_yellow_primary">#D4AB49</color>
+    <color name="th_yellow_primary_dark">#C49527</color>
+    <color name="th_yellow_primary_light">#E6CD94</color>
+    <color name="th_yellow_primary_pale">#F4EEE1</color>
+    <color name="th_yellow_on_primary">#FFFFFF</color>
+    <color name="th_yellow_accent">#C3D345</color>
+    <color name="th_yellow_accent_dark">#A9BA2C</color>
+    <color name="th_yellow_on_accent">#FFFFFF</color>
+    <color name="th_yellow_window_bg">#F9F8F6</color>
+    <color name="th_yellow_card_bg">#F4F0E7</color>
+    <color name="th_yellow_header_bg">#EBE2CB</color>
+    <color name="th_yellow_home_page_bg">#F8F7F4</color>
+    <color name="th_yellow_text_primary">#0F1115</color>
+    <color name="th_yellow_text_secondary">#8A7442</color>
+    <color name="th_yellow_text_disabled">#9AA0A6</color>
+    <color name="th_yellow_border">#EAE4D7</color>
+    <color name="th_yellow_border_focus">#D4AB49</color>
+    <color name="th_yellow_input_bg">#FFFFFF</color>
+    <color name="th_yellow_input_stroke">#D7D0C1</color>
+    <color name="th_yellow_gradient_start">#D4AB49</color>
+    <color name="th_yellow_gradient_end">#E6CD94</color>
+    <color name="th_yellow_glow">#40D4AB49</color>
+    <color name="th_yellow_ripple">#33D4AB49</color>
+</resources>

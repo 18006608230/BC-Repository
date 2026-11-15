@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  小对勾：深色主题色（?attr/bcPrimary）
+  用于动作选择器卡片：该动作已添加到当天时替换加号，给出已添加反馈
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M5,13 L10,18 L19,6"
+        android:strokeColor="?attr/bcPrimary"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

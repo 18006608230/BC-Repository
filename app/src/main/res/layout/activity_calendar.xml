@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- 月份导航头 -->
+    <!-- 月份导航头：按钮「<」「>」紧贴年份月，居中加粗深主题色 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,13 +22,21 @@
             android:contentDescription="返回"
             android:src="@drawable/ic_back_arrow" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonPrevMonth"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="上个月"
-            android:src="@android:drawable/ic_media_previous" />
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="0dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:text="‹"
+            android:textColor="?attr/bcPrimary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewMonthTitle"
@@ -37,16 +45,25 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="2026年8月"
+            android:textColor="?attr/bcPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonNextMonth"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="下个月"
-            android:src="@android:drawable/ic_media_next" />
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="8dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="0dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:text="›"
+            android:textColor="?attr/bcPrimary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <!-- 星期标题行 -->
@@ -84,8 +101,7 @@
         android:text="开始训练（按今天的计划）"
         android:textSize="15sp"
         android:visibility="gone"
-        app:backgroundTint="@color/bc_primary"
-        android:textColor="@color/white" />
+        android:textColor="?attr/bcOnPrimary" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRecords"

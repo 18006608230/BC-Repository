@@ -4,6 +4,16 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!-- 组间休息计时器：前台服务保活 + 结束时通知提醒（Android 13+ 需运行时申请通知权限） -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <!-- 休息结束的兜底闹钟：即使进程被杀也能准点提醒。
+         Android 12+ 用户可在系统设置里关掉，未授权时代码静默降级，由前台服务继续兜底。 -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <!-- 引导用户把 App 加入省电白名单：国产 ROM 的后台清理是软件层面拦不住的最后一环 -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
     <application
         android:name=".BrawnCatalogApplication"
         android:allowBackup="true"
@@ -62,6 +72,12 @@
             android:parentActivityName=".ui.home.HomeActivity"
             android:exported="false" />
 
+        <!-- 训练日历：首页「已训练」卡片进入，GitHub 热力图风格 -->
+        <activity
+            android:name=".ui.home.TrainingCalendarActivity"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:exported="false" />
+
         <activity
             android:name=".ui.calendar.CalendarActivity"
             android:parentActivityName=".ui.home.HomeActivity"
@@ -83,6 +99,11 @@
             android:theme="@style/Theme.BrawnCatalog.PlanDetail" />
 
         <activity
+            android:name=".ui.plan.PlanDayExercisesActivity"
+            android:parentActivityName=".ui.plan.PlanDetailActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.calendar.WorkoutActivity"
             android:parentActivityName=".ui.calendar.CalendarActivity"
             android:exported="false" />
@@ -90,6 +111,20 @@
         <activity
             android:name=".ui.body.BodyMetricsActivity"
             android:parentActivityName=".ui.home.HomeActivity"
+            android:exported="false" />
+
+        <!-- 组间休息计时器前台服务：让倒计时在息屏/切后台时继续，并在结束时响铃震动 -->
+        <service
+            android:name=".ui.timer.RestTimerService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="组间休息倒计时：训练时需要持续计时，并在休息结束时震动提醒" />
+        </service>
+
+        <receiver
+            android:name=".ui.timer.RestTimerReceiver"
             android:exported="false" />
 
     </application>

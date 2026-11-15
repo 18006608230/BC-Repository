@@ -10,10 +10,12 @@ import com.bc.app.databinding.ItemPlanDayBinding
 
 /**
  * 计划详情页 · 训练日分组列表适配器
- * 每个训练日渲染为一张卡片，列出该日所有动作
+ * 每个训练日渲染为一张卡片，列出该日所有动作；
+ * 点击卡片可进入该日动作卡片列表（onDayClick）
  */
 class PlanDayAdapter(
-    private val exerciseMap: Map<Long, Exercise>
+    private val exerciseMap: Map<Long, Exercise>,
+    private val onDayClick: (PlanDay) -> Unit = {}
 ) : RecyclerView.Adapter<PlanDayAdapter.ViewHolder>() {
 
     // 训练日 -> 该日动作条目（保持顺序）
@@ -59,8 +61,14 @@ class PlanDayAdapter(
 
         fun bind(day: PlanDay, items: List<TrainingPlanItem>) {
             binding.textViewDayTitle.text = day.name.ifEmpty { "第 ${day.dayIndex} 天" }
-            binding.textViewDayMeta.text = "${items.size} 个动作"
-            binding.textViewDayExercises.text = buildExerciseText(items)
+            if (day.isRestDay) {
+                binding.textViewDayMeta.text = "休息日"
+                binding.textViewDayExercises.text = "今日休息，恢复后再战 💤"
+            } else {
+                binding.textViewDayMeta.text = "${items.size} 个动作"
+                binding.textViewDayExercises.text = buildExerciseText(items)
+            }
+            binding.root.setOnClickListener { onDayClick(day) }
         }
 
         fun bindUngrouped(items: List<TrainingPlanItem>) {

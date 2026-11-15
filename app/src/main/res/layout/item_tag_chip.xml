@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    可勾选的部位标签 chip（训练日标签 / 分类选动作弹窗共用）
+    复用统计页 Widget.BrawnCatalog.Chip.Range 样式：
+    选中 = 浅色主题色底 + 深主题色边框和文字；未选中 = 透明底 + 普通文字
+-->
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.BrawnCatalog.Chip.Range"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:checkable="true" />

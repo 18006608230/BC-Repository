@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bc.app.databinding.ItemCardioSubcategoryBinding
-import com.bc.app.data.entity.Exercise
 
 /**
- * 有氧子分类卡片适配器
+ * 子分类卡片适配器
+ * item：(子分类名, 简述)
  */
 class CardioSubcategoryAdapter(
-    private val items: List<Pair<String, String>>, // (子分类名, 简述)
+    private var items: List<Pair<String, String>>, // (子分类名, 简述)
     private val onItemClick: (String) -> Unit
 ) : RecyclerView.Adapter<CardioSubcategoryAdapter.ViewHolder>() {
 
@@ -25,6 +25,12 @@ class CardioSubcategoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(items[position])
+    }
+
+    /** 数据变化（子分类集合变化）时整体刷新 */
+    fun updateItems(newItems: List<Pair<String, String>>) {
+        items = newItems
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val binding: ItemCardioSubcategoryBinding) :

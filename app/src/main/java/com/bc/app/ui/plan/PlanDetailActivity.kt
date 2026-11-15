@@ -1,14 +1,13 @@
 package com.bc.app.ui.plan
 
+import com.bc.app.ui.base.BaseActivity
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bc.app.data.db.BrawnCatalogDatabase
-import com.bc.app.data.entity.TrainingPlan
-import com.bc.app.data.entity.TrainingPlanItem
 import com.bc.app.databinding.ActivityPlanDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,9 +15,9 @@ import kotlinx.coroutines.withContext
 
 /**
  * 计划详情页
- * 展示训练日分组、动作清单；支持设为当前、复制、编辑
+ * 展示训练日分组、动作清单；支持设为当前、编辑、同步日历（已移除复制）
  */
-class PlanDetailActivity : AppCompatActivity() {
+class PlanDetailActivity : BaseActivity() {
 
     companion object {
         const val EXTRA_PLAN_ID = "extra_plan_id"
@@ -40,12 +39,11 @@ class PlanDetailActivity : AppCompatActivity() {
 
         planId = intent.getLongExtra(EXTRA_PLAN_ID, -1)
 
-        adapter = PlanDayAdapter(emptyMap())
+        adapter = PlanDayAdapter(emptyMap()) { day -> openDayExercises(day) }
         binding.recyclerViewDays.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewDays.adapter = adapter
 
         binding.buttonSetActive.setOnClickListener { setActive() }
-        binding.buttonCopyPlan.setOnClickListener { copyPlan() }
         binding.buttonEditPlan.setOnClickListener { editPlan() }
         binding.buttonSyncCalendar.setOnClickListener { syncCalendar() }
 
@@ -81,22 +79,24 @@ class PlanDetailActivity : AppCompatActivity() {
                 else "${items.size} 个动作"
 
             // 刷新适配器（更换 exerciseMap）
-            adapter = PlanDayAdapter(exercises)
+            adapter = PlanDayAdapter(exercises) { day -> openDayExercises(day) }
             binding.recyclerViewDays.adapter = adapter
             adapter.setData(days, items)
 
-            // 右上角按钮：当前使用中（主蓝填充）→ 不可再点；设为当前（描边）→ 可点
+            // 右上角按钮：当前使用中（浅主题色片 + 深主题色字）→ 不可再点；设为当前（描边）→ 可点
+            // 文字统一用 ?attr/bcPrimary（深主题色），不再用白色，避免浅色模式下白字看不清
+            val primaryColor = com.bc.app.utils.SettingsUtils.resolveAttrColor(this@PlanDetailActivity, com.bc.app.R.attr.bcPrimary)
+            val primaryPaleColor = com.bc.app.utils.SettingsUtils.resolveAttrColor(this@PlanDetailActivity, com.bc.app.R.attr.bcPrimaryPale)
             binding.buttonSetActive.isEnabled = !plan.isActive
             binding.buttonSetActive.text = if (plan.isActive) "✓ 当前使用中" else "设为当前"
             binding.buttonSetActive.backgroundTintList =
                 android.content.res.ColorStateList.valueOf(
-                    if (plan.isActive) getColor(com.bc.app.R.color.bc_primary)
+                    if (plan.isActive) primaryPaleColor
                     else android.graphics.Color.TRANSPARENT
                 )
-            binding.buttonSetActive.setTextColor(
-                if (plan.isActive) android.graphics.Color.WHITE
-                else getColor(com.bc.app.R.color.bc_primary)
-            )
+            binding.buttonSetActive.setTextColor(primaryColor)
+            binding.buttonSetActive.strokeColor =
+                android.content.res.ColorStateList.valueOf(primaryColor)
         }
     }
 
@@ -112,51 +112,21 @@ class PlanDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun copyPlan() {
-        lifecycleScope.launch {
-            val database = BrawnCatalogDatabase.getDatabase(this@PlanDetailActivity)
-            val source = withContext(Dispatchers.IO) {
-                database.trainingPlanDao().getPlanById(planId)
-            } ?: return@launch
-
-            withContext(Dispatchers.IO) {
-                val newPlan = TrainingPlan(
-                    name = source.name + "（副本）",
-                    description = source.description,
-                    isActive = false
-                )
-                val newPlanId = database.trainingPlanDao().insertPlan(newPlan)
-
-                // 复制训练日
-                val srcDays = database.planDayDao().getDaysByPlanSync(source.id)
-                val dayIdMap = HashMap<Long, Long>()
-                for (d in srcDays) {
-                    val newDayId = database.planDayDao().insertDay(
-                        d.copy(id = 0, planId = newPlanId)
-                    )
-                    dayIdMap[d.id] = newDayId
-                }
-
-                // 复制条目（保留 dayId 映射）
-                val srcItems = database.trainingPlanDao().getItemsByPlanSync(source.id)
-                val newItems = srcItems.map { item ->
-                    item.copy(
-                        id = 0,
-                        planId = newPlanId,
-                        dayId = item.dayId?.let { dayIdMap[it] }
-                    )
-                }
-                database.trainingPlanDao().insertItems(newItems)
-            }
-
-            Toast.makeText(this@PlanDetailActivity, "计划已复制", Toast.LENGTH_SHORT).show()
-            loadPlan()
-        }
-    }
-
     private fun editPlan() {
         val intent = Intent(this, PlanEditActivity::class.java)
         intent.putExtra(PlanEditActivity.EXTRA_PLAN_ID, planId)
+        startActivity(intent)
+    }
+
+    /**
+     * 点击训练日卡片 -> 进入该日动作卡片列表
+     */
+    private fun openDayExercises(day: com.bc.app.data.entity.PlanDay) {
+        val intent = Intent(this, PlanDayExercisesActivity::class.java).apply {
+            putExtra(PlanDayExercisesActivity.EXTRA_PLAN_ID, planId)
+            putExtra(PlanDayExercisesActivity.EXTRA_DAY_ID, day.id)
+            putExtra(PlanDayExercisesActivity.EXTRA_DAY_NAME, day.name.ifEmpty { "第 ${day.dayIndex} 天" })
+        }
         startActivity(intent)
     }
 

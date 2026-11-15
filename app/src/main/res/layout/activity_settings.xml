@@ -24,7 +24,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="16dp"
         android:text="设置"
-        android:textColor="@color/bc_text_primary"
+        android:textColor="?attr/bcTextPrimary"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,26 +54,36 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="主题颜色"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="13sp" />
+
+            <!-- 8 个主题色块横排（Kotlin 动态填充） -->
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingVertical="12dp">
+                android:layout_marginTop="8dp"
+                android:scrollbars="none">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="暗黑模式"
-                    android:textSize="16sp" />
-
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switchDarkMode"
+                <LinearLayout
+                    android:id="@+id/themeSwatchContainer"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="6dp" />
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/textCurrentTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="13sp" />
 
             <!-- 数据备份 -->
             <TextView
@@ -118,11 +128,14 @@
                 android:textColor="?attr/colorPrimary"
                 android:textSize="13sp" />
 
-            <!-- 关于 -->
+            <!-- 关于（彩蛋入口） -->
             <TextView
+                android:id="@+id/textViewAbout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:background="?attr/selectableItemBackground"
+                android:padding="6dp"
                 android:text="关于"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="14sp"

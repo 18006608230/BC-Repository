@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  计划编辑页 Switch 滑块配色：
+  选中 = 深色主题色（bcPrimary），未选中 = 浅色主题色（bcPrimaryLight）
+  与轨道 switch_track_bc 形成「深色 + 浅色」主题搭配
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="?attr/bcPrimary" />
+    <item android:color="?attr/bcPrimaryLight" />
+</selector>

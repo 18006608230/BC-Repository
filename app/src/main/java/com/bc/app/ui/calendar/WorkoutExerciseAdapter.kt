@@ -91,10 +91,10 @@ class WorkoutExerciseAdapter(
         // 有氧：隐藏重量/组数/次数，只填总时长
         val isCardio = exercise.id in cardioIds
 
-        holder.binding.layoutWorkoutWeight.isEnabled = editable
-        holder.binding.layoutWorkoutSets.isEnabled = editable
-        holder.binding.layoutWorkoutReps.isEnabled = editable
-        holder.binding.layoutWorkoutDuration.isEnabled = editable
+        holder.binding.editWorkoutWeight.isEnabled = editable
+        holder.binding.editWorkoutSets.isEnabled = editable
+        holder.binding.editWorkoutReps.isEnabled = editable
+        holder.binding.editWorkoutDuration.isEnabled = editable
 
         if (isCardio) {
             holder.binding.layoutWorkoutWeight.visibility = android.view.View.GONE

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    自定义主题属性：布局/drawable 一律通过 ?attr/xxx 引用这些属性，
+    从而实现"切换颜色主题"时字体与背景自动适配（无需改代码）。
+-->
+<resources>
+    <attr name="bcPrimary" format="color" />
+    <attr name="bcPrimaryDark" format="color" />
+    <attr name="bcPrimaryLight" format="color" />
+    <attr name="bcPrimaryPale" format="color" />
+    <attr name="bcOnPrimary" format="color" />
+
+    <attr name="bcAccent" format="color" />
+    <attr name="bcAccentDark" format="color" />
+    <attr name="bcOnAccent" format="color" />
+
+    <attr name="bcWindowBg" format="color" />
+    <attr name="bcCardBg" format="color" />
+    <attr name="bcHeaderBg" format="color" />
+    <attr name="bcHomePageBg" format="color" />
+
+    <attr name="bcTextPrimary" format="color" />
+    <attr name="bcTextSecondary" format="color" />
+    <attr name="bcTextDisabled" format="color" />
+
+    <attr name="bcBorder" format="color" />
+    <attr name="bcBorderFocus" format="color" />
+    <attr name="bcInputBg" format="color" />
+    <attr name="bcInputStroke" format="color" />
+
+    <attr name="bcGradientStart" format="color" />
+    <attr name="bcGradientEnd" format="color" />
+    <attr name="bcGlow" format="color" />
+    <attr name="bcRipple" format="color" />
+
+    <!-- 状态色：肌群周覆盖的达标 / 偏少 / 未练。
+         属于语义色而非风格色，7 套主题共用同一组值，不随主题切换 -->
+    <attr name="bcStatusOk" format="color" />
+    <attr name="bcStatusWarn" format="color" />
+    <attr name="bcStatusLow" format="color" />
+</resources>

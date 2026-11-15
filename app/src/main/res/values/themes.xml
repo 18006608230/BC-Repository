@@ -1,91 +1,405 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 亮色主题（默认） -->
-    <style name="Theme.BrawnCatalog" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/bc_primary</item>
-        <item name="colorPrimaryVariant">@color/bc_primary_dark</item>
-        <item name="colorOnPrimary">@color/bc_on_primary</item>
-        <item name="colorSecondary">@color/bc_accent</item>
-        <item name="colorSecondaryVariant">@color/bc_accent_dark</item>
-        <item name="colorOnSecondary">@color/bc_on_accent</item>
+<!--
+    颜色主题系统（取代暗黑模式）：黑/深蓝/深绿/酒红/日落黄/爱马仕橙/深紫（亮一点、不荧光）。
+    Theme.BrawnCatalog 为默认（蓝），其余为覆盖色板的子主题。
+    Activity 通过 BaseActivity 在 onCreate 前 setTheme() 应用用户选择。
+    布局/drawable 一律用 ?attr/bcXxx 引用，切换主题自动适配字体与背景。
+-->
+    <!-- 主题：蓝 -->
+    <style name="Theme.BrawnCatalog" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/th_blue_primary</item>
+        <item name="colorPrimaryVariant">@color/th_blue_primary_dark</item>
+        <item name="colorOnPrimary">@color/th_blue_on_primary</item>
+        <item name="colorSecondary">@color/th_blue_accent</item>
+        <item name="colorSecondaryVariant">@color/th_blue_accent_dark</item>
+        <item name="colorOnSecondary">@color/th_blue_on_accent</item>
+        <item name="android:textColorPrimary">@color/th_blue_text_primary</item>
+        <item name="android:textColorSecondary">@color/th_blue_text_secondary</item>
+        <item name="bcPrimary">@color/th_blue_primary</item>
+        <item name="bcPrimaryDark">@color/th_blue_primary_dark</item>
+        <item name="bcPrimaryLight">@color/th_blue_primary_light</item>
+        <item name="bcPrimaryPale">@color/th_blue_primary_pale</item>
+        <item name="bcOnPrimary">@color/th_blue_on_primary</item>
+        <item name="bcAccent">@color/th_blue_accent</item>
+        <item name="bcAccentDark">@color/th_blue_accent_dark</item>
+        <item name="bcOnAccent">@color/th_blue_on_accent</item>
+        <item name="bcWindowBg">@color/th_blue_window_bg</item>
+        <item name="bcCardBg">@color/th_blue_card_bg</item>
+        <item name="bcHeaderBg">@color/th_blue_header_bg</item>
+        <item name="bcHomePageBg">@color/th_blue_home_page_bg</item>
+        <item name="bcTextPrimary">@color/th_blue_text_primary</item>
+        <item name="bcTextSecondary">@color/th_blue_text_secondary</item>
+        <item name="bcTextDisabled">@color/th_blue_text_disabled</item>
+        <item name="bcBorder">@color/th_blue_border</item>
+        <item name="bcBorderFocus">@color/th_blue_border_focus</item>
+        <item name="bcInputBg">@color/th_blue_input_bg</item>
+        <item name="bcInputStroke">@color/th_blue_input_stroke</item>
+        <item name="bcGradientStart">@color/th_blue_gradient_start</item>
+        <item name="bcGradientEnd">@color/th_blue_gradient_end</item>
+        <item name="bcGlow">@color/th_blue_glow</item>
+        <item name="bcRipple">@color/th_blue_ripple</item>
 
-        <!-- 默认文字颜色：深灰主文字 / 浅灰辅助 -->
-        <item name="android:textColorPrimary">@color/bc_text_primary</item>
-        <item name="android:textColorSecondary">@color/bc_text_secondary</item>
+        <!-- 状态色（语义色，子主题不覆盖，7 套主题共用同一组值） -->
+        <item name="bcStatusOk">@color/bc_status_ok</item>
+        <item name="bcStatusWarn">@color/bc_status_warn</item>
+        <item name="bcStatusLow">@color/bc_status_low</item>
 
-        <!-- 窗口/背景 -->
-        <item name="android:windowBackground">@color/window_background</item>
-        <item name="android:statusBarColor">@color/window_background</item>
-        <item name="android:navigationBarColor">@color/window_background</item>
-
-        <!-- 卡片默认外观：16dp 圆角 + 浅灰弥散阴影 -->
+        <!-- ===== 文字/表面前景色兜底 =====
+             基底主题 Theme.MaterialComponents.NoActionBar 属于 Material "暗色"主题，
+             凡未被显式覆盖的 Material 属性都会继承暗色默认值（白色前景/深色表面），
+             表现为浅色卡片上的「白字看不清」。这里在基础主题统一声明一次，
+             7 套子主题各自覆盖 bc* 后会自动跟随。 -->
+        <item name="android:textColor">?attr/bcTextPrimary</item>
+        <item name="android:textColorHint">?attr/bcInputStroke</item>
+        <item name="colorSurface">?attr/bcCardBg</item>
+        <item name="colorSurfaceVariant">?attr/bcCardBg</item>
+        <item name="colorOnSurface">?attr/bcTextPrimary</item>
+        <item name="colorOnSurfaceVariant">?attr/bcTextSecondary</item>
+        <item name="colorOnBackground">?attr/bcTextPrimary</item>
+        <item name="android:windowBackground">@color/th_blue_window_bg</item>
+        <item name="android:statusBarColor">@color/th_blue_header_bg</item>
+        <item name="android:navigationBarColor">@color/th_blue_window_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="materialCardViewStyle">@style/Widget.BrawnCatalog.Card</item>
-
-        <!-- 主按钮默认：蓝色渐变 + 14dp 圆角 + 外发光 -->
         <item name="materialButtonStyle">@style/Widget.BrawnCatalog.Button.Primary</item>
-
-        <!-- 输入框默认：纯白底 + 细浅灰边框 + 12dp 圆角 -->
         <item name="textInputStyle">@style/Widget.BrawnCatalog.TextInputLayout</item>
-
-        <!-- 系统弹窗（AlertDialog）统一为圆角白卡风格 -->
         <item name="alertDialogTheme">@style/ThemeOverlay.BrawnCatalog.Dialog.Alert</item>
         <item name="android:alertDialogTheme">@style/ThemeOverlay.BrawnCatalog.Dialog.Alert</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.BrawnCatalog.Dialog.Alert</item>
-
-        <!-- 页面转场：from 右滑入（配合 Theme 内 windowAnimationStyle 平滑曲线） -->
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
+    <!-- 主题：黑（浅色模式：浅灰大底 + 黑色前景，区别于黑夜模式） -->
+    <style name="Theme.BrawnCatalog.Black" parent="Theme.BrawnCatalog">
+        <item name="colorPrimary">@color/th_black_primary</item>
+        <item name="colorPrimaryVariant">@color/th_black_primary_dark</item>
+        <item name="colorOnPrimary">@color/th_black_on_primary</item>
+        <item name="colorSecondary">@color/th_black_accent</item>
+        <item name="colorSecondaryVariant">@color/th_black_accent_dark</item>
+        <item name="colorOnSecondary">@color/th_black_on_accent</item>
+        <item name="android:textColorPrimary">@color/th_black_text_primary</item>
+        <item name="android:textColorSecondary">@color/th_black_text_secondary</item>
+        <item name="bcPrimary">@color/th_black_primary</item>
+        <item name="bcPrimaryDark">@color/th_black_primary_dark</item>
+        <item name="bcPrimaryLight">@color/th_black_primary_light</item>
+        <item name="bcPrimaryPale">@color/th_black_primary_pale</item>
+        <item name="bcOnPrimary">@color/th_black_on_primary</item>
+        <item name="bcAccent">@color/th_black_accent</item>
+        <item name="bcAccentDark">@color/th_black_accent_dark</item>
+        <item name="bcOnAccent">@color/th_black_on_accent</item>
+        <item name="bcWindowBg">@color/th_black_window_bg</item>
+        <item name="bcCardBg">@color/th_black_card_bg</item>
+        <item name="bcHeaderBg">@color/th_black_header_bg</item>
+        <item name="bcHomePageBg">@color/th_black_home_page_bg</item>
+        <item name="bcTextPrimary">@color/th_black_text_primary</item>
+        <item name="bcTextSecondary">@color/th_black_text_secondary</item>
+        <item name="bcTextDisabled">@color/th_black_text_disabled</item>
+        <item name="bcBorder">@color/th_black_border</item>
+        <item name="bcBorderFocus">@color/th_black_border_focus</item>
+        <item name="bcInputBg">@color/th_black_input_bg</item>
+        <item name="bcInputStroke">@color/th_black_input_stroke</item>
+        <item name="bcGradientStart">@color/th_black_gradient_start</item>
+        <item name="bcGradientEnd">@color/th_black_gradient_end</item>
+        <item name="bcGlow">@color/th_black_glow</item>
+        <item name="bcRipple">@color/th_black_ripple</item>
+        <item name="android:windowBackground">@color/th_black_window_bg</item>
+        <item name="android:statusBarColor">@color/th_black_header_bg</item>
+        <item name="android:navigationBarColor">@color/th_black_window_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <!-- 主题：红 -->
+    <style name="Theme.BrawnCatalog.Red" parent="Theme.BrawnCatalog">
+        <item name="colorPrimary">@color/th_red_primary</item>
+        <item name="colorPrimaryVariant">@color/th_red_primary_dark</item>
+        <item name="colorOnPrimary">@color/th_red_on_primary</item>
+        <item name="colorSecondary">@color/th_red_accent</item>
+        <item name="colorSecondaryVariant">@color/th_red_accent_dark</item>
+        <item name="colorOnSecondary">@color/th_red_on_accent</item>
+        <item name="android:textColorPrimary">@color/th_red_text_primary</item>
+        <item name="android:textColorSecondary">@color/th_red_text_secondary</item>
+        <item name="bcPrimary">@color/th_red_primary</item>
+        <item name="bcPrimaryDark">@color/th_red_primary_dark</item>
+        <item name="bcPrimaryLight">@color/th_red_primary_light</item>
+        <item name="bcPrimaryPale">@color/th_red_primary_pale</item>
+        <item name="bcOnPrimary">@color/th_red_on_primary</item>
+        <item name="bcAccent">@color/th_red_accent</item>
+        <item name="bcAccentDark">@color/th_red_accent_dark</item>
+        <item name="bcOnAccent">@color/th_red_on_accent</item>
+        <item name="bcWindowBg">@color/th_red_window_bg</item>
+        <item name="bcCardBg">@color/th_red_card_bg</item>
+        <item name="bcHeaderBg">@color/th_red_header_bg</item>
+        <item name="bcHomePageBg">@color/th_red_home_page_bg</item>
+        <item name="bcTextPrimary">@color/th_red_text_primary</item>
+        <item name="bcTextSecondary">@color/th_red_text_secondary</item>
+        <item name="bcTextDisabled">@color/th_red_text_disabled</item>
+        <item name="bcBorder">@color/th_red_border</item>
+        <item name="bcBorderFocus">@color/th_red_border_focus</item>
+        <item name="bcInputBg">@color/th_red_input_bg</item>
+        <item name="bcInputStroke">@color/th_red_input_stroke</item>
+        <item name="bcGradientStart">@color/th_red_gradient_start</item>
+        <item name="bcGradientEnd">@color/th_red_gradient_end</item>
+        <item name="bcGlow">@color/th_red_glow</item>
+        <item name="bcRipple">@color/th_red_ripple</item>
+        <item name="android:windowBackground">@color/th_red_window_bg</item>
+        <item name="android:statusBarColor">@color/th_red_header_bg</item>
+        <item name="android:navigationBarColor">@color/th_red_window_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <!-- 主题：绿 -->
+    <style name="Theme.BrawnCatalog.Green" parent="Theme.BrawnCatalog">
+        <item name="colorPrimary">@color/th_green_primary</item>
+        <item name="colorPrimaryVariant">@color/th_green_primary_dark</item>
+        <item name="colorOnPrimary">@color/th_green_on_primary</item>
+        <item name="colorSecondary">@color/th_green_accent</item>
+        <item name="colorSecondaryVariant">@color/th_green_accent_dark</item>
+        <item name="colorOnSecondary">@color/th_green_on_accent</item>
+        <item name="android:textColorPrimary">@color/th_green_text_primary</item>
+        <item name="android:textColorSecondary">@color/th_green_text_secondary</item>
+        <item name="bcPrimary">@color/th_green_primary</item>
+        <item name="bcPrimaryDark">@color/th_green_primary_dark</item>
+        <item name="bcPrimaryLight">@color/th_green_primary_light</item>
+        <item name="bcPrimaryPale">@color/th_green_primary_pale</item>
+        <item name="bcOnPrimary">@color/th_green_on_primary</item>
+        <item name="bcAccent">@color/th_green_accent</item>
+        <item name="bcAccentDark">@color/th_green_accent_dark</item>
+        <item name="bcOnAccent">@color/th_green_on_accent</item>
+        <item name="bcWindowBg">@color/th_green_window_bg</item>
+        <item name="bcCardBg">@color/th_green_card_bg</item>
+        <item name="bcHeaderBg">@color/th_green_header_bg</item>
+        <item name="bcHomePageBg">@color/th_green_home_page_bg</item>
+        <item name="bcTextPrimary">@color/th_green_text_primary</item>
+        <item name="bcTextSecondary">@color/th_green_text_secondary</item>
+        <item name="bcTextDisabled">@color/th_green_text_disabled</item>
+        <item name="bcBorder">@color/th_green_border</item>
+        <item name="bcBorderFocus">@color/th_green_border_focus</item>
+        <item name="bcInputBg">@color/th_green_input_bg</item>
+        <item name="bcInputStroke">@color/th_green_input_stroke</item>
+        <item name="bcGradientStart">@color/th_green_gradient_start</item>
+        <item name="bcGradientEnd">@color/th_green_gradient_end</item>
+        <item name="bcGlow">@color/th_green_glow</item>
+        <item name="bcRipple">@color/th_green_ripple</item>
+        <item name="android:windowBackground">@color/th_green_window_bg</item>
+        <item name="android:statusBarColor">@color/th_green_header_bg</item>
+        <item name="android:navigationBarColor">@color/th_green_window_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <!-- 主题：黄 -->
+    <style name="Theme.BrawnCatalog.Yellow" parent="Theme.BrawnCatalog">
+        <item name="colorPrimary">@color/th_yellow_primary</item>
+        <item name="colorPrimaryVariant">@color/th_yellow_primary_dark</item>
+        <item name="colorOnPrimary">@color/th_yellow_on_primary</item>
+        <item name="colorSecondary">@color/th_yellow_accent</item>
+        <item name="colorSecondaryVariant">@color/th_yellow_accent_dark</item>
+        <item name="colorOnSecondary">@color/th_yellow_on_accent</item>
+        <item name="android:textColorPrimary">@color/th_yellow_text_primary</item>
+        <item name="android:textColorSecondary">@color/th_yellow_text_secondary</item>
+        <item name="bcPrimary">@color/th_yellow_primary</item>
+        <item name="bcPrimaryDark">@color/th_yellow_primary_dark</item>
+        <item name="bcPrimaryLight">@color/th_yellow_primary_light</item>
+        <item name="bcPrimaryPale">@color/th_yellow_primary_pale</item>
+        <item name="bcOnPrimary">@color/th_yellow_on_primary</item>
+        <item name="bcAccent">@color/th_yellow_accent</item>
+        <item name="bcAccentDark">@color/th_yellow_accent_dark</item>
+        <item name="bcOnAccent">@color/th_yellow_on_accent</item>
+        <item name="bcWindowBg">@color/th_yellow_window_bg</item>
+        <item name="bcCardBg">@color/th_yellow_card_bg</item>
+        <item name="bcHeaderBg">@color/th_yellow_header_bg</item>
+        <item name="bcHomePageBg">@color/th_yellow_home_page_bg</item>
+        <item name="bcTextPrimary">@color/th_yellow_text_primary</item>
+        <item name="bcTextSecondary">@color/th_yellow_text_secondary</item>
+        <item name="bcTextDisabled">@color/th_yellow_text_disabled</item>
+        <item name="bcBorder">@color/th_yellow_border</item>
+        <item name="bcBorderFocus">@color/th_yellow_border_focus</item>
+        <item name="bcInputBg">@color/th_yellow_input_bg</item>
+        <item name="bcInputStroke">@color/th_yellow_input_stroke</item>
+        <item name="bcGradientStart">@color/th_yellow_gradient_start</item>
+        <item name="bcGradientEnd">@color/th_yellow_gradient_end</item>
+        <item name="bcGlow">@color/th_yellow_glow</item>
+        <item name="bcRipple">@color/th_yellow_ripple</item>
+        <item name="android:windowBackground">@color/th_yellow_window_bg</item>
+        <item name="android:statusBarColor">@color/th_yellow_header_bg</item>
+        <item name="android:navigationBarColor">@color/th_yellow_window_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <!-- 主题：紫 -->
+    <style name="Theme.BrawnCatalog.Purple" parent="Theme.BrawnCatalog">
+        <item name="colorPrimary">@color/th_purple_primary</item>
+        <item name="colorPrimaryVariant">@color/th_purple_primary_dark</item>
+        <item name="colorOnPrimary">@color/th_purple_on_primary</item>
+        <item name="colorSecondary">@color/th_purple_accent</item>
+        <item name="colorSecondaryVariant">@color/th_purple_accent_dark</item>
+        <item name="colorOnSecondary">@color/th_purple_on_accent</item>
+        <item name="android:textColorPrimary">@color/th_purple_text_primary</item>
+        <item name="android:textColorSecondary">@color/th_purple_text_secondary</item>
+        <item name="bcPrimary">@color/th_purple_primary</item>
+        <item name="bcPrimaryDark">@color/th_purple_primary_dark</item>
+        <item name="bcPrimaryLight">@color/th_purple_primary_light</item>
+        <item name="bcPrimaryPale">@color/th_purple_primary_pale</item>
+        <item name="bcOnPrimary">@color/th_purple_on_primary</item>
+        <item name="bcAccent">@color/th_purple_accent</item>
+        <item name="bcAccentDark">@color/th_purple_accent_dark</item>
+        <item name="bcOnAccent">@color/th_purple_on_accent</item>
+        <item name="bcWindowBg">@color/th_purple_window_bg</item>
+        <item name="bcCardBg">@color/th_purple_card_bg</item>
+        <item name="bcHeaderBg">@color/th_purple_header_bg</item>
+        <item name="bcHomePageBg">@color/th_purple_home_page_bg</item>
+        <item name="bcTextPrimary">@color/th_purple_text_primary</item>
+        <item name="bcTextSecondary">@color/th_purple_text_secondary</item>
+        <item name="bcTextDisabled">@color/th_purple_text_disabled</item>
+        <item name="bcBorder">@color/th_purple_border</item>
+        <item name="bcBorderFocus">@color/th_purple_border_focus</item>
+        <item name="bcInputBg">@color/th_purple_input_bg</item>
+        <item name="bcInputStroke">@color/th_purple_input_stroke</item>
+        <item name="bcGradientStart">@color/th_purple_gradient_start</item>
+        <item name="bcGradientEnd">@color/th_purple_gradient_end</item>
+        <item name="bcGlow">@color/th_purple_glow</item>
+        <item name="bcRipple">@color/th_purple_ripple</item>
+        <item name="android:windowBackground">@color/th_purple_window_bg</item>
+        <item name="android:statusBarColor">@color/th_purple_header_bg</item>
+        <item name="android:navigationBarColor">@color/th_purple_window_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <!-- 主题：橙 -->
+    <style name="Theme.BrawnCatalog.Orange" parent="Theme.BrawnCatalog">
+        <item name="colorPrimary">@color/th_orange_primary</item>
+        <item name="colorPrimaryVariant">@color/th_orange_primary_dark</item>
+        <item name="colorOnPrimary">@color/th_orange_on_primary</item>
+        <item name="colorSecondary">@color/th_orange_accent</item>
+        <item name="colorSecondaryVariant">@color/th_orange_accent_dark</item>
+        <item name="colorOnSecondary">@color/th_orange_on_accent</item>
+        <item name="android:textColorPrimary">@color/th_orange_text_primary</item>
+        <item name="android:textColorSecondary">@color/th_orange_text_secondary</item>
+        <item name="bcPrimary">@color/th_orange_primary</item>
+        <item name="bcPrimaryDark">@color/th_orange_primary_dark</item>
+        <item name="bcPrimaryLight">@color/th_orange_primary_light</item>
+        <item name="bcPrimaryPale">@color/th_orange_primary_pale</item>
+        <item name="bcOnPrimary">@color/th_orange_on_primary</item>
+        <item name="bcAccent">@color/th_orange_accent</item>
+        <item name="bcAccentDark">@color/th_orange_accent_dark</item>
+        <item name="bcOnAccent">@color/th_orange_on_accent</item>
+        <item name="bcWindowBg">@color/th_orange_window_bg</item>
+        <item name="bcCardBg">@color/th_orange_card_bg</item>
+        <item name="bcHeaderBg">@color/th_orange_header_bg</item>
+        <item name="bcHomePageBg">@color/th_orange_home_page_bg</item>
+        <item name="bcTextPrimary">@color/th_orange_text_primary</item>
+        <item name="bcTextSecondary">@color/th_orange_text_secondary</item>
+        <item name="bcTextDisabled">@color/th_orange_text_disabled</item>
+        <item name="bcBorder">@color/th_orange_border</item>
+        <item name="bcBorderFocus">@color/th_orange_border_focus</item>
+        <item name="bcInputBg">@color/th_orange_input_bg</item>
+        <item name="bcInputStroke">@color/th_orange_input_stroke</item>
+        <item name="bcGradientStart">@color/th_orange_gradient_start</item>
+        <item name="bcGradientEnd">@color/th_orange_gradient_end</item>
+        <item name="bcGlow">@color/th_orange_glow</item>
+        <item name="bcRipple">@color/th_orange_ripple</item>
+        <item name="android:windowBackground">@color/th_orange_window_bg</item>
+        <item name="android:statusBarColor">@color/th_orange_header_bg</item>
+        <item name="android:navigationBarColor">@color/th_orange_window_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <!-- 主题：蓝（默认） -->
+    <style name="Theme.BrawnCatalog.Blue" parent="Theme.BrawnCatalog">
+        <item name="colorPrimary">@color/th_blue_primary</item>
+        <item name="colorPrimaryVariant">@color/th_blue_primary_dark</item>
+        <item name="colorOnPrimary">@color/th_blue_on_primary</item>
+        <item name="colorSecondary">@color/th_blue_accent</item>
+        <item name="colorSecondaryVariant">@color/th_blue_accent_dark</item>
+        <item name="colorOnSecondary">@color/th_blue_on_accent</item>
+        <item name="android:textColorPrimary">@color/th_blue_text_primary</item>
+        <item name="android:textColorSecondary">@color/th_blue_text_secondary</item>
+        <item name="bcPrimary">@color/th_blue_primary</item>
+        <item name="bcPrimaryDark">@color/th_blue_primary_dark</item>
+        <item name="bcPrimaryLight">@color/th_blue_primary_light</item>
+        <item name="bcPrimaryPale">@color/th_blue_primary_pale</item>
+        <item name="bcOnPrimary">@color/th_blue_on_primary</item>
+        <item name="bcAccent">@color/th_blue_accent</item>
+        <item name="bcAccentDark">@color/th_blue_accent_dark</item>
+        <item name="bcOnAccent">@color/th_blue_on_accent</item>
+        <item name="bcWindowBg">@color/th_blue_window_bg</item>
+        <item name="bcCardBg">@color/th_blue_card_bg</item>
+        <item name="bcHeaderBg">@color/th_blue_header_bg</item>
+        <item name="bcHomePageBg">@color/th_blue_home_page_bg</item>
+        <item name="bcTextPrimary">@color/th_blue_text_primary</item>
+        <item name="bcTextSecondary">@color/th_blue_text_secondary</item>
+        <item name="bcTextDisabled">@color/th_blue_text_disabled</item>
+        <item name="bcBorder">@color/th_blue_border</item>
+        <item name="bcBorderFocus">@color/th_blue_border_focus</item>
+        <item name="bcInputBg">@color/th_blue_input_bg</item>
+        <item name="bcInputStroke">@color/th_blue_input_stroke</item>
+        <item name="bcGradientStart">@color/th_blue_gradient_start</item>
+        <item name="bcGradientEnd">@color/th_blue_gradient_end</item>
+        <item name="bcGlow">@color/th_blue_glow</item>
+        <item name="bcRipple">@color/th_blue_ripple</item>
+        <item name="android:windowBackground">@color/th_blue_window_bg</item>
+        <item name="android:statusBarColor">@color/th_blue_header_bg</item>
+        <item name="android:navigationBarColor">@color/th_blue_window_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 
-    <!-- 普通卡片弹窗主题：透明窗口 + 无阴影，内容本身是圆角白卡 -->
-    <style name="Theme.BrawnCatalog.CardDialog" parent="Theme.MaterialComponents.DayNight.Dialog">
+    <!-- 卡片弹窗 / 计划详情 / AlertDialog 等主题（颜色全部走 ?attr 主题属性） -->
+    <style name="Theme.BrawnCatalog.CardDialog" parent="Theme.MaterialComponents.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowElevation">0dp</item>
         <item name="android:backgroundDimAmount">0.4</item>
-        <item name="colorPrimary">@color/bc_primary</item>
         <item name="materialCardViewStyle">@style/Widget.BrawnCatalog.Card</item>
         <item name="materialButtonStyle">@style/Widget.BrawnCatalog.Button.Primary</item>
         <item name="textInputStyle">@style/Widget.BrawnCatalog.TextInputLayout</item>
+        <!-- 父主题 Theme.MaterialComponents.Dialog 是 Material 暗色主题，
+             不显式声明时卡片上的文字会继承为白色，在浅色卡片背景上完全看不见。
+             这里把前景色/主题色显式绑定到 bc* 主题属性。 -->
+        <item name="android:textColor">?attr/bcTextPrimary</item>
+        <item name="android:textColorPrimary">?attr/bcTextPrimary</item>
+        <item name="android:textColorSecondary">?attr/bcTextSecondary</item>
+        <item name="android:textColorHint">?attr/bcInputStroke</item>
+        <item name="colorPrimary">?attr/bcPrimary</item>
+        <item name="colorPrimaryVariant">?attr/bcPrimaryDark</item>
+        <item name="colorOnPrimary">?attr/bcOnPrimary</item>
+        <item name="colorSurface">?attr/bcCardBg</item>
+        <item name="colorOnSurface">?attr/bcTextPrimary</item>
+        <item name="colorOnSurfaceVariant">?attr/bcTextSecondary</item>
+        <item name="colorOnBackground">?attr/bcTextPrimary</item>
     </style>
 
-    <!-- AlertDialog 弹窗主题：圆角白卡 + 应用品牌色按钮，所有 delete/confirm 等系统弹窗统一风格 -->
+    <style name="Theme.BrawnCatalog.PlanDetail" parent="Theme.BrawnCatalog">
+        <item name="android:statusBarColor">?attr/bcHeaderBg</item>
+    </style>
+
     <style name="ThemeOverlay.BrawnCatalog.Dialog.Alert" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="android:windowBackground">@drawable/bg_dialog_alert</item>
         <item name="android:windowMinWidthMajor">85%</item>
         <item name="android:windowMinWidthMinor">85%</item>
         <item name="android:backgroundDimAmount">0.4</item>
-        <item name="colorPrimary">@color/bc_primary</item>
-        <item name="colorPrimaryVariant">@color/bc_primary_dark</item>
-        <item name="colorOnPrimary">@color/bc_on_primary</item>
-        <item name="colorAccent">@color/bc_primary</item>
-        <item name="colorControlActivated">@color/bc_primary</item>
-        <item name="android:textColorPrimary">@color/bc_text_primary</item>
-        <item name="android:textColorSecondary">@color/bc_text_secondary</item>
+        <item name="colorPrimary">?attr/bcPrimary</item>
+        <item name="colorPrimaryVariant">?attr/bcPrimaryDark</item>
+        <item name="colorOnPrimary">?attr/bcOnPrimary</item>
+        <item name="colorAccent">?attr/bcPrimary</item>
+        <item name="colorControlActivated">?attr/bcPrimary</item>
+        <item name="android:textColorPrimary">?attr/bcTextPrimary</item>
+        <item name="android:textColorSecondary">?attr/bcTextSecondary</item>
+        <!-- 标题/正文/列表项（如长按动作菜单的「编辑动作 / 删除动作 / 取消」）
+             统一为深色文字，避免继承到暗色主题的白色 -->
+        <item name="android:textColor">?attr/bcTextPrimary</item>
+        <item name="android:textColorAlertDialogListItem">?attr/bcTextPrimary</item>
         <item name="materialButtonStyle">@style/Widget.BrawnCatalog.Button.Primary</item>
     </style>
 
-    <!-- 计划详情主题：蓝色头部延伸到状态栏（状态栏同样是浅蓝 header 色，视觉无缝） -->
-    <style name="Theme.BrawnCatalog.PlanDetail" parent="Theme.BrawnCatalog">
-        <item name="android:statusBarColor">@color/bc_header_bg</item>
-        <item name="android:windowLightStatusBar">false</item>
-    </style>
-
-    <!-- ===== 卡片样式：16dp 圆角 + 淡灰弥散阴影 + 12dp 间距由布局控制 ===== -->
+    <!-- ===== 卡片：圆角 + 阴影，底色随主题 ===== -->
     <style name="Widget.BrawnCatalog.Card" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/card_background</item>
+        <item name="cardBackgroundColor">?attr/bcCardBg</item>
         <item name="cardCornerRadius">16dp</item>
         <item name="cardElevation">4dp</item>
         <item name="strokeWidth">0dp</item>
     </style>
 
-    <!-- ===== 主按钮：蓝色渐变 + 14dp 圆角 + 淡蓝外发光 ===== -->
+    <!-- ===== 主按钮：主题渐变 + 圆角 ===== -->
     <style name="Widget.BrawnCatalog.Button.Primary" parent="Widget.MaterialComponents.Button">
         <item name="android:background">@drawable/bg_button_primary</item>
         <item name="android:minHeight">48dp</item>
-        <item name="android:textColor">@color/bc_on_primary</item>
+        <item name="android:textColor">?attr/bcOnPrimary</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:stateListAnimator">@animator/button_press_scale</item>
@@ -94,26 +408,44 @@
         <item name="backgroundTint">@null</item>
     </style>
 
-    <!-- ===== 输入框容器：纯白底 + 细浅灰边框 + 12dp 圆角 ===== -->
+    <!-- ===== 输入框：主题底色 + 主题描边 ===== -->
     <style name="Widget.BrawnCatalog.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxBackgroundColor">@color/bc_input_bg</item>
+        <item name="boxBackgroundColor">?attr/bcInputBg</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxStrokeWidthFocused">1dp</item>
-        <item name="boxStrokeColor">@color/bc_input_stroke</item>
+        <item name="boxStrokeColor">?attr/bcInputStroke</item>
         <item name="boxCornerRadiusTopStart">12dp</item>
         <item name="boxCornerRadiusTopEnd">12dp</item>
         <item name="boxCornerRadiusBottomStart">12dp</item>
         <item name="boxCornerRadiusBottomEnd">12dp</item>
-        <item name="hintTextColor">@color/bc_input_stroke</item>
+        <item name="hintTextColor">?attr/bcInputStroke</item>
     </style>
 
-    <!-- Tab 标签栏样式：无边框，选中仅蓝色文字 + 底部下划线 -->
+    <!-- ===== Tab：主题色指示器与选中文字 ===== -->
     <style name="Widget.BrawnCatalog.TabLayout" parent="Widget.MaterialComponents.TabLayout">
-        <item name="tabIndicatorColor">@color/bc_primary</item>
+        <item name="tabIndicatorColor">?attr/bcPrimary</item>
         <item name="tabIndicatorHeight">2dp</item>
-        <item name="tabSelectedTextColor">@color/bc_primary</item>
-        <item name="tabTextColor">@color/bc_text_primary</item>
-        <item name="tabRippleColor">@color/bc_ripple</item>
+        <item name="tabSelectedTextColor">?attr/bcPrimary</item>
+        <item name="tabTextColor">?attr/bcTextPrimary</item>
+        <item name="tabRippleColor">?attr/bcRipple</item>
         <item name="tabIndicatorFullWidth">false</item>
+    </style>
+
+    <!-- ===== Chip（统计页时间范围）：完全控制视觉，去掉 Material Chip.Choice 内部的
+         "colorOnSurface" 黑色叠加导致未选中态呈"黑色一坨"问题；选中 = 浅色片 + 深主题色边框
+         + 深主题色文字，未选中 = 透明 + 浅边框 + 普通文字 ===== -->
+    <style name="Widget.BrawnCatalog.Chip.Range" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">@color/chip_state_bg</item>
+        <item name="chipStrokeColor">@color/chip_state_stroke</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipSurfaceColor">@android:color/transparent</item>
+        <item name="chipIconTint">@android:color/transparent</item>
+        <item name="checkedIconTint">@android:color/transparent</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="android:textColor">@color/chip_state_text</item>
+        <item name="rippleColor">@color/chip_state_ripple</item>
+        <item name="closeIconVisible">false</item>
+        <item name="chipMinHeight">36dp</item>
+        <item name="ensureMinTouchTargetSize">false</item>
     </style>
 </resources>

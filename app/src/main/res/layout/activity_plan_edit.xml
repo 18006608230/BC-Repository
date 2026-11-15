@@ -4,14 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="16dp">
 
         <ImageButton
             android:id="@+id/buttonBack"
@@ -28,74 +30,137 @@
             android:layout_weight="1"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="?attr/bcPrimary"
             android:text="编辑计划" />
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <ScrollView
+        android:id="@+id/scrollViewPlanEdit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="计划名称">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextPlanName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="计划说明（可选）">
+            <!-- 计划名称（常驻标签） -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="计划名称"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="?attr/bcPrimary" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextPlanDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:maxLines="3" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="计划动作"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="?attr/colorPrimary" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPlanName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- 动作条目容器 -->
-    <LinearLayout
-        android:id="@+id/containerPlanItems"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical" />
+            <!-- 计划说明（常驻标签） -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="计划说明（可选）"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="?attr/bcPrimary" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonAddItem"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+ 添加动作" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp">
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/switchActivePlan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="设为当前使用计划" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPlanDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:maxLines="3" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonSavePlan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="保存计划"
-        android:textSize="16sp" />
+            <!-- ===== 周期天数：填写后生成对应数量的天卡 ===== -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="周期天数"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="?attr/bcPrimary" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="一个周期共几天（如 3、5、7）"
+                    app:boxBackgroundMode="outline"
+                    app:hintTextColor="?attr/bcPrimary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextCycleDays"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="?attr/bcPrimary"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonGenerateDays"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="生成天卡"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- 每天一张卡：可填名称（如 胸日/腿日/休息日）并添加动作 -->
+            <LinearLayout
+                android:id="@+id/containerDays"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchActivePlan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="设为当前使用计划"
+                android:textColor="?attr/bcPrimary"
+                app:thumbTint="@color/switch_thumb_bc"
+                app:trackTint="@color/switch_track_bc" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSavePlan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="保存计划"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

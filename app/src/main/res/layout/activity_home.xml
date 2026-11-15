@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/home_page_bg">
+    android:background="?attr/bcHomePageBg">
 
     <!-- ===== 顶部：浅蓝背景圆角容器（Header + 三张统计卡 + Tab 标签栏） ===== -->
     <LinearLayout
@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Brawn Catalog[力量手册]"
-                    android:textColor="@color/bc_primary"
+                    android:textColor="?attr/bcPrimary"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -48,7 +48,7 @@
                     android:layout_marginTop="2dp"
                     android:text="今天也要加油训练 💪"
                     android:textSize="14sp"
-                    android:textColor="@color/bc_text_secondary" />
+                    android:textColor="?attr/bcTextSecondary" />
             </LinearLayout>
 
             <!-- 设置齿轮，右上角 -->
@@ -61,8 +61,8 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="设置"
                 android:src="@drawable/ic_settings_gear"
-                android:tint="@color/bc_text_primary"
-                app:tint="@color/bc_text_primary" />
+                android:tint="?attr/bcTextPrimary"
+                app:tint="?attr/bcTextPrimary" />
         </RelativeLayout>
 
         <!-- ===== 三张悬浮白统计卡片（16dp 圆角 + 淡灰弥散阴影） ===== -->
@@ -81,7 +81,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@color/card_background"
+                app:cardBackgroundColor="?attr/bcCardBg"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
                 app:cardUseCompatPadding="true">
@@ -98,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textColor="@color/bc_text_primary"
+                        android:textColor="?attr/bcTextPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -107,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="本周已训练"
-                        android:textColor="@color/bc_text_secondary"
+                        android:textColor="?attr/bcTextSecondary"
                         android:textSize="12sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -118,11 +118,12 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="12dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/bc_primary"
+                android:background="@drawable/bg_button_pale_outline"
+                android:backgroundTint="@null"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:text="计时器"
-                android:textColor="@android:color/white"
+                android:textColor="?attr/bcPrimaryDark"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:cornerRadius="16dp" />
@@ -134,7 +135,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardBackgroundColor="@color/card_background"
+                app:cardBackgroundColor="?attr/bcCardBg"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
                 app:cardUseCompatPadding="true">
@@ -151,7 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textColor="@color/bc_accent"
+                        android:textColor="?attr/bcAccent"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -160,7 +161,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="已训练"
-                        android:textColor="@color/bc_text_secondary"
+                        android:textColor="?attr/bcTextSecondary"
                         android:textSize="12sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -203,20 +204,6 @@
         </com.google.android.material.tabs.TabLayout>
     </LinearLayout>
 
-    <!-- ===== 训练入口标题（移到卡片下方） ===== -->
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="选择训练部位"
-        android:textColor="@color/bc_primary"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutTopPanel" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewBodyParts"
         android:layout_width="0dp"
@@ -227,10 +214,10 @@
         android:paddingTop="8dp"
         android:paddingEnd="16dp"
         android:paddingBottom="16dp"
-        android:background="@color/home_page_bg"
+        android:background="?attr/bcHomePageBg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutTopPanel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

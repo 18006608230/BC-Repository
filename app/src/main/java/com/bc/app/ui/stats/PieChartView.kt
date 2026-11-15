@@ -8,12 +8,14 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import androidx.core.content.ContextCompat
 import kotlin.math.min
 
 /**
  * 手绘圆环图 / 扇形图 View
  * 不依赖第三方图表库，用于展示各部位训练次数占比
- * 颜色从主题读取（描边/文字主题感知），扇区配色使用内置高对比度调色板，暗黑模式自动适配。
+ * 文字与描边读主题（bcPrimary / bcTextSecondary），扇区配色取自 6 个非黑主题的
+ * bcPrimary / bcAccent（在 colors.xml 的 bc_chart_* 资源中），多 slice 按索引旋转。
  */
 class PieChartView @JvmOverloads constructor(
     context: Context,
@@ -26,21 +28,24 @@ class PieChartView @JvmOverloads constructor(
     private var slices: List<Slice> = emptyList()
     private var centerText: String = ""
 
-    // 主题感知颜色
-    private var textColor: Int = Color.argb(180, 0, 0, 0)
-    private var bgRingColor: Int = Color.argb(30, 0, 0, 0)
+    // 主题感知颜色（统一使用主题深色，bold）
+    private var textColor: Int = Color.rgb(26, 26, 26)
+    private var bgRingColor: Int = Color.argb(28, 0, 0, 0)
 
-    // 内置高对比度扇区调色板
-    private val palette = intArrayOf(
-        Color.rgb(22, 93, 255),   // 主蓝
-        Color.rgb(255, 112, 67),  // 橙
-        Color.rgb(52, 199, 123),  // 绿
-        Color.rgb(255, 179, 64),  // 金黄
-        Color.rgb(175, 82, 222),  // 紫
-        Color.rgb(0, 181, 204),   // 青
-        Color.rgb(255, 71, 87),   // 红
-        Color.rgb(88, 86, 214)    // 靛
+    // 扇区调色盘：6 个非黑主题主色 + 2 个主题辅色，全部取自 colors.xml 的 bc_chart_*
+    private val paletteResIds = intArrayOf(
+        com.bc.app.R.color.bc_chart_blue,            // 深蓝  primary
+        com.bc.app.R.color.bc_chart_red,             // 酒红  primary
+        com.bc.app.R.color.bc_chart_green,           // 橄榄绿 primary
+        com.bc.app.R.color.bc_chart_orange,          // 爱马仕橙 primary
+        com.bc.app.R.color.bc_chart_purple,          // 深紫  primary
+        com.bc.app.R.color.bc_chart_yellow,          // 金黄  primary
+        com.bc.app.R.color.bc_chart_red_accent,      // 酒红  accent
+        com.bc.app.R.color.bc_chart_purple_accent    // 深紫  accent
     )
+
+    /** 调色盘颜色（懒加载，首次绘制时解析 resId → ColorInt） */
+    private var palette: IntArray = IntArray(paletteResIds.size)
 
     private val slicePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
@@ -57,14 +62,24 @@ class PieChartView @JvmOverloads constructor(
     }
 
     private fun readThemeColors() {
+        // 文字统一使用当前主题的 bcPrimary（深色前景）：中心训练次数、底部"训练次数"、右侧图例（部位名 + 次数）
         val tv = TypedValue()
-        val theme = context.theme
-        var isDark = false
-        if (theme.resolveAttribute(android.R.attr.colorBackground, tv, true)) {
-            isDark = Color.luminance(tv.data) < 0.5f
+        var primary = textColor
+        if (context.theme.resolveAttribute(com.bc.app.R.attr.bcPrimary, tv, true)) {
+            primary = tv.data
         }
-        textColor = if (isDark) Color.argb(220, 235, 235, 235) else Color.argb(200, 0, 0, 0)
-        bgRingColor = if (isDark) Color.argb(45, 255, 255, 255) else Color.argb(28, 0, 0, 0)
+        textColor = primary
+        // 圆环底色取次主题色（hsl 0.35, 0.40 的透出版）
+        if (context.theme.resolveAttribute(com.bc.app.R.attr.bcTextSecondary, tv, true)) {
+            val base = tv.data
+            bgRingColor = (base and 0x00FFFFFF) or 0x14000000
+        }
+        // 扇区调色盘：加载资源（取自 colors.xml 的 bc_chart_*）
+        for (i in paletteResIds.indices) {
+            palette[i] = ContextCompat.getColor(context, paletteResIds[i])
+        }
+        // 自适应主题变化
+        invalidate()
     }
 
     /**
@@ -93,11 +108,15 @@ class PieChartView @JvmOverloads constructor(
             return
         }
 
-        // 圆环区域：使用较短边，右侧预留图例空间；整体缩小 0.9 避免遮挡
-        val legendWidth = 110f * resources.displayMetrics.density
-        val chartSize = ((min(width - legendWidth, height.toFloat()) - 8f * resources.displayMetrics.density) * 0.9f)
+        // 圆环区域：使用较短边，右侧预留图例空间，左侧留出偏移避免圆环贴左边缘被遮挡；
+        // 整体缩小 0.9 避免遮挡
+        val density = resources.displayMetrics.density
+        val legendWidth = 110f * density
+        val chartOffsetX = 16f * density   // 左侧留白：整体右移，避免贴边/被裁切
+        val availWidth = width - legendWidth - chartOffsetX
+        val chartSize = ((min(availWidth, height.toFloat()) - 8f * density) * 0.9f)
             .coerceAtLeast(10f)
-        val centerX = chartSize / 2f
+        val centerX = chartOffsetX + chartSize / 2f
         val centerY = height / 2f
         val radius = chartSize * 0.42f
         val donutThickness = radius * 0.45f
@@ -124,17 +143,18 @@ class PieChartView @JvmOverloads constructor(
             startAngle += sweep
         }
 
-        // 中心文字（总体训练次数）
+        // 中心文字（总体训练次数，加粗 + 主题主色）
         textPaint.color = textColor
         textPaint.textSize = 30f * resources.displayMetrics.density
         textPaint.textAlign = Paint.Align.CENTER
+        textPaint.isFakeBoldText = true
         canvas.drawText(centerText, centerX, centerY - 2f * resources.displayMetrics.density, textPaint)
 
         textPaint.textSize = 11f * resources.displayMetrics.density
         canvas.drawText("训练次数", centerX, centerY + 18f * resources.displayMetrics.density, textPaint)
 
-        // 右侧图例：色块 + 名称 + 次数
-        val legendX = chartSize + 12f * resources.displayMetrics.density
+        // 右侧图例：色块 + 名称 + 次数（随圆环右移同步右移）
+        val legendX = chartOffsetX + chartSize + 12f * resources.displayMetrics.density
         drawLegend(canvas, legendX, centerY)
     }
 
@@ -151,8 +171,9 @@ class PieChartView @JvmOverloads constructor(
             slicePaint.color = palette[index % palette.size]
             // 色块
             canvas.drawRoundRect(startX, y - swatch / 2f, startX + swatch, y + swatch / 2f, 3f, 3f, slicePaint)
-            // 名称 + 次数
+            // 名称 + 次数（加粗 + 主题主色）
             textPaint.color = textColor
+            textPaint.isFakeBoldText = true
             val label = slice.label
             val value = slice.value.toInt().toString()
             canvas.drawText(label, startX + swatch + 6f * resources.displayMetrics.density, y + 4f * resources.displayMetrics.density, textPaint)
@@ -165,6 +186,13 @@ class PieChartView @JvmOverloads constructor(
         textPaint.color = textColor
         textPaint.textSize = 13f * resources.displayMetrics.density
         textPaint.textAlign = Paint.Align.CENTER
+        textPaint.isFakeBoldText = true
         canvas.drawText("暂无数据", width / 2f, height / 2f, textPaint)
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        // 进入屏幕时刷新主题颜色（防止主题切换 recreate 时属性延迟读到）
+        readThemeColors()
     }
 }

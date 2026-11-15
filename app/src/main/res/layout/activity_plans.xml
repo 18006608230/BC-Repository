@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="训练计划"
-            android:textColor="@color/bc_text_primary"
+            android:textColor="?attr/bcTextPrimary"
             android:textSize="22sp"
             android:textStyle="bold" />
     </LinearLayout>

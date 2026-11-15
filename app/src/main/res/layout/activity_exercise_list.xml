@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/window_background">
+    android:background="?attr/bcWindowBg">
 
     <ImageButton
         android:id="@+id/buttonBack"
@@ -28,7 +28,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="动作列表"
-        android:textColor="@color/bc_text_primary"
+        android:textColor="?attr/bcTextPrimary"
         android:textSize="22sp"
         android:textStyle="bold"
         android:transitionName="sharedBodyPartTitle"
@@ -60,13 +60,36 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="20dp"
-        android:textColor="@color/bc_text_primary"
+        android:textColor="?attr/bcTextPrimary"
         android:textSize="15sp"
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewScreenTitle" />
+
+    <!-- 搜索框：中文名 / 英文名 / 目标肌群 / 次要肌群 -->
+    <EditText
+        android:id="@+id/editTextSearch"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_input_rounded"
+        android:hint="搜索动作（中文 / 英文 / 肌群）"
+        android:imeOptions="actionSearch"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:singleLine="true"
+        android:textColor="?attr/bcTextPrimary"
+        android:textColorHint="?attr/bcTextSecondary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSubcategoryInfo" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewExercises"
@@ -78,6 +101,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSubcategoryInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

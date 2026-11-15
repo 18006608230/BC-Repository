@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  计划编辑页 · 天卡圆角背景
+  16dp 大圆角 + 主题卡片底色，比普通直角卡片更圆润
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="16dp" />
+    <solid android:color="?attr/bcCardBg" />
+</shape>

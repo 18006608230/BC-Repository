@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  计划编辑页 Switch 轨道配色：
+  选中 = 浅色主题色（bcPrimaryLight），未选中 = 极浅主题色（bcPrimaryPale）
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="?attr/bcPrimaryLight" />
+    <item android:color="?attr/bcPrimaryPale" />
+</selector>

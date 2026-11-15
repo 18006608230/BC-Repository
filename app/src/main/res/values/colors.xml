@@ -34,12 +34,30 @@
     <color name="bc_border">#FFE5E8EF</color>           <!-- 极细浅灰边框 -->
     <color name="bc_border_focus">#FF165DFF</color>     <!-- 聚焦时品牌蓝边框 -->
 
+    <!-- ===== 状态色（肌群周覆盖：达标 / 偏少 / 未练）=====
+         状态色表达的是语义而非风格，7 套主题共用同一组值，不随主题切换。 -->
+    <color name="bc_status_ok">#FF2F9E6B</color>         <!-- 达标：柔和绿 -->
+    <color name="bc_status_warn">#FFC8811F</color>        <!-- 偏少：琥珀 -->
+    <color name="bc_status_low">#FFD0473F</color>         <!-- 未练：砖红 -->
+
     <!-- 涟漪按压反馈：半透明品牌蓝（点击瞬间反馈） -->
     <color name="bc_ripple">#33165DFF</color>
 
     <!-- 阴影（淡灰弥散，非黑） -->
     <color name="bc_shadow">#1A1D2129</color>           <!-- 淡灰阴影（10% 深灰） -->
     <color name="bc_shadow_soft">#0F1D2129</color>      <!-- 极淡阴影（6%） -->
+
+    <!-- ===== 统计图分布调色盘（取自各非黑主题，全部为主色 / 辅色，无黑/暗灰） =====
+         顺序：6 个主题 bcPrimary 各 1 颗 + 2 颗主题 bcAccent（红/紫）作为第 7/8 位，
+         切到任一主题（黑主题除外）时调色盘保持一致，多 slice 时按索引旋转取色 -->
+    <color name="bc_chart_blue">#FF306ACF</color>          <!-- 主题：深蓝  primary  -->
+    <color name="bc_chart_red">#FFAE2943</color>           <!-- 主题：酒红  primary  -->
+    <color name="bc_chart_green">#FF30A661</color>         <!-- 主题：橄榄绿 primary -->
+    <color name="bc_chart_orange">#FFDA7D3E</color>        <!-- 主题：爱马仕橙 primary -->
+    <color name="bc_chart_purple">#FF7531B9</color>        <!-- 主题：深紫  primary  -->
+    <color name="bc_chart_yellow">#FFD4AB49</color>        <!-- 主题：金黄  primary  -->
+    <color name="bc_chart_red_accent">#FFD345C0</color>    <!-- 主题：酒红  accent   -->
+    <color name="bc_chart_purple_accent">#FFCF45D3</color> <!-- 主题：深紫  accent   -->
 
     <!-- 保留兼容旧命名（其它布局可能引用） -->
     <color name="purple_200">#FFBB86FC</color>

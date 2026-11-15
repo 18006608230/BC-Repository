@@ -28,5 +28,6 @@ data class PlanDay(
     val planId: Long,          // 所属计划
     val dayIndex: Int,         // 第几天（1-based）
     val name: String,          // 训练日名称，如「第1天 胸+三头」
-    val sortOrder: Int = 0     // 排序
+    val sortOrder: Int = 0,    // 排序
+    val isRestDay: Boolean = false // 是否为休息日（v10 新增）
 )

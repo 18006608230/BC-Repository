@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bc_header_bg"
+        android:background="?attr/bcHeaderBg"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:paddingTop="20dp"
@@ -37,7 +37,7 @@
             android:paddingStart="14dp"
             android:paddingEnd="14dp"
             android:text="设为当前"
-            android:textColor="@color/bc_primary"
+            android:textColor="?attr/bcPrimary"
             android:textSize="13sp"
             android:textStyle="bold"
             app:cornerRadius="20dp"
@@ -54,7 +54,7 @@
             android:layout_marginTop="4dp"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@color/bc_text_primary"
+            android:textColor="?attr/bcTextPrimary"
             app:layout_constraintEnd_toStartOf="@+id/buttonSetActive"
             app:layout_constraintStart_toEndOf="@+id/buttonBack"
             app:layout_constraintTop_toTopOf="@+id/buttonSetActive" />
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
-            android:textColor="@color/bc_text_secondary"
+            android:textColor="?attr/bcTextSecondary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewPlanName" />
 
@@ -75,12 +75,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="13sp"
-            android:textColor="@color/bc_text_secondary"
+            android:textColor="?attr/bcTextSecondary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewPlanDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 操作按钮 -->
+    <!-- 操作按钮（仅保留 编辑 / 同步日历，已移除复制） -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,20 +88,10 @@
         android:padding="16dp">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonCopyPlan"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_weight="1"
-            android:text="复制" />
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonEditPlan"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:text="编辑" />
 
@@ -124,7 +114,7 @@
         android:text="训练日安排"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/bc_text_primary" />
+        android:textColor="?attr/bcTextPrimary" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDays"

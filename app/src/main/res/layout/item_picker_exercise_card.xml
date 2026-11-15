@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    动作选择器 · 动作卡片
+    与主页动作列表卡片（item_exercise.xml）设计一致：
+    配图 + 动作名 + 英文名，仅把右侧五角星收藏换成深色主题色的粗小加号（添加到当天）
+-->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="?attr/bcCardBg"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- 动作配图（GIF 或自定义图片，无配图时隐藏） -->
+        <ImageView
+            android:id="@+id/imageViewPickerExercise"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/bg_image_thumb"
+            android:clipToOutline="true"
+            android:contentDescription="动作配图"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 动作名 -->
+        <TextView
+            android:id="@+id/textViewPickerExerciseName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="动作名称"
+            android:textColor="?attr/bcPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/buttonPickerAddExercise"
+            app:layout_constraintStart_toEndOf="@+id/imageViewPickerExercise"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 英文原名副标题 -->
+        <TextView
+            android:id="@+id/textViewPickerExerciseNameEn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Exercise Name"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:textColor="?attr/bcTextSecondary"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/buttonPickerAddExercise"
+            app:layout_constraintStart_toEndOf="@+id/imageViewPickerExercise"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPickerExerciseName" />
+
+        <!-- 右侧粗小加号：点击把该动作添加到当天（已添加后变为对勾） -->
+        <ImageButton
+            android:id="@+id/buttonPickerAddExercise"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="添加动作"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_add_bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

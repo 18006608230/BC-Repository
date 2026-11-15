@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主题配色：深蓝（亮、不荧光） -->
+    <color name="th_blue_primary">#306ACF</color>
+    <color name="th_blue_primary_dark">#2254AA</color>
+    <color name="th_blue_primary_light">#7BA0E0</color>
+    <color name="th_blue_primary_pale">#E1E8F4</color>
+    <color name="th_blue_on_primary">#FFFFFF</color>
+    <color name="th_blue_accent">#5845D3</color>
+    <color name="th_blue_accent_dark">#3F2CBA</color>
+    <color name="th_blue_on_accent">#FFFFFF</color>
+    <color name="th_blue_window_bg">#F6F7F9</color>
+    <color name="th_blue_card_bg">#E7EBF4</color>
+    <color name="th_blue_header_bg">#CBD7EB</color>
+    <color name="th_blue_home_page_bg">#F4F6F8</color>
+    <color name="th_blue_text_primary">#0F1115</color>
+    <color name="th_blue_text_secondary">#425C8A</color>
+    <color name="th_blue_text_disabled">#9AA0A6</color>
+    <color name="th_blue_border">#D7DEEA</color>
+    <color name="th_blue_border_focus">#306ACF</color>
+    <color name="th_blue_input_bg">#FFFFFF</color>
+    <color name="th_blue_input_stroke">#C1C9D7</color>
+    <color name="th_blue_gradient_start">#306ACF</color>
+    <color name="th_blue_gradient_end">#7BA0E0</color>
+    <color name="th_blue_glow">#40306ACF</color>
+    <color name="th_blue_ripple">#33306ACF</color>
+</resources>

@@ -1,13 +1,17 @@
 package com.bc.app.ui.plan
 
+import com.bc.app.ui.base.BaseActivity
+
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bc.app.R
 import com.bc.app.data.db.BrawnCatalogDatabase
 import com.bc.app.data.entity.TrainingPlan
 import com.bc.app.databinding.ActivityPlansBinding
+import com.bc.app.databinding.DialogPlanActionsBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -16,7 +20,7 @@ import kotlinx.coroutines.withContext
 /**
  * 训练计划列表页
  */
-class PlansActivity : AppCompatActivity() {
+class PlansActivity : BaseActivity() {
 
     private lateinit var binding: ActivityPlansBinding
     private lateinit var adapter: PlanAdapter
@@ -46,24 +50,32 @@ class PlansActivity : AppCompatActivity() {
     }
 
     /**
-     * 长按计划：弹出操作菜单（设为当前 / 编辑 / 删除）
+     * 长按计划：弹出操作菜单（设为当前 / 编辑 / 删除），选项文字统一深色主题色
      */
     private fun showPlanActions(plan: TrainingPlan) {
-        val options = mutableListOf<String>()
-        if (!plan.isActive) options.add("设为当前使用")
-        options.add("编辑")
-        options.add("删除")
+        val binding = DialogPlanActionsBinding.inflate(layoutInflater)
+        binding.textActionTitle.text = plan.name
+        // 当前计划不再显示「设为当前使用」
+        binding.textActionSetActive.visibility =
+            if (plan.isActive) View.GONE else View.VISIBLE
 
-        android.app.AlertDialog.Builder(this)
-            .setTitle(plan.name)
-            .setItems(options.toTypedArray()) { _, which ->
-                when (options[which]) {
-                    "设为当前使用" -> setActive(plan)
-                    "编辑" -> openEdit(plan)
-                    "删除" -> confirmDelete(plan)
-                }
-            }
-            .show()
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setView(binding.root)
+            .create()
+
+        binding.textActionSetActive.setOnClickListener {
+            dialog.dismiss()
+            setActive(plan)
+        }
+        binding.textActionEdit.setOnClickListener {
+            dialog.dismiss()
+            openEdit(plan)
+        }
+        binding.textActionDelete.setOnClickListener {
+            dialog.dismiss()
+            confirmDelete(plan)
+        }
+        dialog.show()
     }
 
     private fun setActive(plan: TrainingPlan) {
@@ -118,7 +130,7 @@ class PlansActivity : AppCompatActivity() {
     }
 
     /**
-     * 从详情页返回时，动作数量可能已变化（复制/编辑），重新同步计数
+     * 从详情页返回时，动作数量可能已变化（编辑 / 同步日历），重新同步计数
      */
     override fun onResume() {
         super.onResume()

@@ -1,91 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<!--
+    计划编辑页 · 单个动作卡片
+    与主页/选择器动作卡风格一致：GIF 配图 + 动作名 + 组数/次数输入 + 删除
+    点击卡片打开分类选择器更换动作
+-->
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layoutPlanItemRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="14dp"
-    android:background="?attr/selectableItemBackground"
-    android:orientation="vertical"
-    android:padding="14dp">
+    android:layout_marginBottom="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="?attr/bcCardBg"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="12dp">
 
-        <TextView
-            android:id="@+id/textViewItemExercise"
+        <!-- 动作配图（GIF，无配图时隐藏） -->
+        <ImageView
+            android:id="@+id/imageViewItemExercise"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_image_thumb"
+            android:clipToOutline="true"
+            android:contentDescription="动作配图"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
-            android:text="选择动作"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
+
+            <!-- 动作名（点击卡片可更换） -->
+            <TextView
+                android:id="@+id/textViewItemExercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="选择动作"
+                android:textColor="?attr/bcPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="组数"
+                        android:textColor="?attr/bcTextSecondary"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutItemSets"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editItemSets"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="次数"
+                        android:textColor="?attr/bcTextSecondary"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutItemReps"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editItemReps"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:inputType="number"
+                            android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/buttonRemoveItem"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="移除"
-            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+            android:padding="4dp"
+            android:src="@drawable/ic_close_thin" />
     </LinearLayout>
-
-    <!-- 点击选择动作（可自行输入动作名称） -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutExerciseSelector"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="动作名称（可输入自定义）">
-
-        <AutoCompleteTextView
-            android:id="@+id/editExerciseSelector"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutItemSets"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="组数"
-            app:boxBackgroundMode="outline">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editItemSets"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutItemReps"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:hint="次数"
-            app:boxBackgroundMode="outline">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editItemReps"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

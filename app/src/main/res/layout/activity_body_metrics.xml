@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/window_background"
+    android:background="?attr/bcWindowBg"
     android:fillViewport="true">
 
     <LinearLayout
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="身体数据"
-                android:textColor="@color/bc_text_primary"
+                android:textColor="?attr/bcTextPrimary"
                 android:textSize="22sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -42,6 +42,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="?attr/bcCardBg"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp">
 
@@ -59,80 +60,138 @@
                     android:textStyle="bold"
                     android:textColor="?attr/colorPrimary" />
 
+                <!-- 第一行：体重 | 体脂（常驻标签 + 输入框） -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layoutWeight"
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="体重kg"
-                        app:boxBackgroundMode="outline">
+                        android:orientation="vertical">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editWeight"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="体重kg"
+                            android:textColor="?attr/bcPrimary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutWeight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="numberDecimal" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_marginTop="2dp"
+                            app:boxBackgroundMode="outline">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layoutBodyFat"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editWeight"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
-                        android:hint="体脂%"
-                        app:boxBackgroundMode="outline">
+                        android:orientation="vertical">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editBodyFat"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="体脂%"
+                            android:textColor="?attr/bcPrimary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutBodyFat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="numberDecimal" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_marginTop="2dp"
+                            app:boxBackgroundMode="outline">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editBodyFat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
+                <!-- 第二行：肌肉量 | 腰围（常驻标签 + 输入框） -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layoutMuscle"
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="肌肉量kg"
-                        app:boxBackgroundMode="outline">
+                        android:orientation="vertical">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editMuscle"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="肌肉量kg"
+                            android:textColor="?attr/bcPrimary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutMuscle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="numberDecimal" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_marginTop="2dp"
+                            app:boxBackgroundMode="outline">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layoutWaist"
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editMuscle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
-                        android:hint="腰围cm"
-                        app:boxBackgroundMode="outline">
+                        android:orientation="vertical">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editWaist"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="腰围cm"
+                            android:textColor="?attr/bcPrimary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutWaist"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="numberDecimal" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_marginTop="2dp"
+                            app:boxBackgroundMode="outline">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editWaist"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
@@ -174,7 +233,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:cardBackgroundColor="@color/card_background"
+            app:cardBackgroundColor="?attr/bcCardBg"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp">
 
@@ -188,7 +247,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="近一周"
-                    android:textColor="@color/bc_text_primary"
+                    android:textColor="?attr/bcTextPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -205,7 +264,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:cardBackgroundColor="@color/card_background"
+            app:cardBackgroundColor="?attr/bcCardBg"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp">
 
@@ -219,7 +278,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="近一月"
-                    android:textColor="@color/bc_text_primary"
+                    android:textColor="?attr/bcTextPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -237,7 +296,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="8dp"
-            app:cardBackgroundColor="@color/card_background"
+            app:cardBackgroundColor="?attr/bcCardBg"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp">
 
@@ -251,7 +310,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="近一年"
-                    android:textColor="@color/bc_text_primary"
+                    android:textColor="?attr/bcTextPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 

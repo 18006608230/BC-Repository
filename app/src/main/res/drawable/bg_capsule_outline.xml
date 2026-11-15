@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    次要胶囊按钮：卡片底色 + 深色主题色描边 + 全圆角胶囊。
+    用于弹窗里与主操作（深色实心胶囊）并列的次要操作，如「删除」。
+-->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/bcRipple">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="?attr/bcCardBg" />
+            <stroke
+                android:width="1.5dp"
+                android:color="?attr/bcPrimaryDark" />
+            <corners android:radius="28dp" />
+        </shape>
+    </item>
+</ripple>

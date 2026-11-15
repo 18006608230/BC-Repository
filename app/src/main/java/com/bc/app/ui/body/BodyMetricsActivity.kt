@@ -1,8 +1,9 @@
 package com.bc.app.ui.body
 
+import com.bc.app.ui.base.BaseActivity
+
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bc.app.data.db.BrawnCatalogDatabase
@@ -21,7 +22,7 @@ import java.util.Locale
  * 记录体重、体脂、肌肉量、腰围
  * 页面底部以折线图展示体重变化趋势：近一周 / 近一月 / 近一年
  */
-class BodyMetricsActivity : AppCompatActivity() {
+class BodyMetricsActivity : BaseActivity() {
 
     private lateinit var binding: ActivityBodyMetricsBinding
     private lateinit var adapter: BodyMetricAdapter

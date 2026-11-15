@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="部位训练分布"
-                android:textColor="@color/bc_text_primary"
+                android:textColor="?attr/bcTextPrimary"
                 android:textSize="22sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -51,7 +51,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipWeek"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+                style="@style/Widget.BrawnCatalog.Chip.Range"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -59,14 +59,14 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipMonth"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+                style="@style/Widget.BrawnCatalog.Chip.Range"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="近一月" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipYear"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+                style="@style/Widget.BrawnCatalog.Chip.Range"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="近一年" />
@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:cardBackgroundColor="@color/card_background"
+            app:cardBackgroundColor="?attr/bcCardBg"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp">
 
@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="12dp"
-                    android:background="@color/bc_border" />
+                    android:background="?attr/bcBorder" />
 
                 <TextView
                     android:id="@+id/textBodyPartDetail"
@@ -104,8 +104,64 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:lineSpacingExtra="6dp"
-                    android:textColor="@color/bc_text_primary"
+                    android:textColor="?attr/bcTextPrimary"
                     android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <!-- ===== 本周各部位训练频次 ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:cardBackgroundColor="?attr/bcCardBg"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="本周肌群覆盖"
+                    android:textColor="?attr/bcPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="大肌群与肩、手臂、核心建议每周 2 次，有氧 3 次"
+                    android:textColor="?attr/bcTextSecondary"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="?attr/bcBorder" />
+
+                <LinearLayout
+                    android:id="@+id/layoutMuscleRows"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:id="@+id/textUnderTrained"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="?attr/bcTextPrimary"
+                    android:textSize="13sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

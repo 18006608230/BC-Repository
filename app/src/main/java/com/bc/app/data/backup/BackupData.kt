@@ -22,6 +22,7 @@ data class BackupData(
     val bodyMetrics: List<BodyMetric> = emptyList()
 ) {
     companion object {
-        const val CURRENT_VERSION = 2
+        /** 3：动作实体新增数据集字段（nameEn/target/steps 等），向下兼容 v1/v2 备份 */
+        const val CURRENT_VERSION = 3
     }
 }

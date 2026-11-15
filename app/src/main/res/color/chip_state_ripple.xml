@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 统计 chip 按压涟漪：浅主题色透明叠加，不出黑色 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:color="?attr/bcPrimaryPale" />
+    <item android:color="@android:color/transparent" />
+</selector>

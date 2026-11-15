@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主题配色：黑（浅色模式：浅灰大底 + 黑色前景，区别于黑夜模式） -->
+    <color name="th_black_primary">#1A1A1A</color>
+    <color name="th_black_primary_dark">#000000</color>
+    <color name="th_black_primary_light">#5C5C5C</color>
+    <color name="th_black_primary_pale">#E8E8EA</color>
+    <color name="th_black_on_primary">#FFFFFF</color>
+    <color name="th_black_accent">#3C3C3C</color>
+    <color name="th_black_accent_dark">#222222</color>
+    <color name="th_black_on_accent">#FFFFFF</color>
+    <color name="th_black_window_bg">#FAFAFA</color>
+    <color name="th_black_card_bg">#F2F2F4</color>
+    <color name="th_black_header_bg">#E8E8EA</color>
+    <color name="th_black_home_page_bg">#FAFAFA</color>
+    <color name="th_black_text_primary">#0A0A0A</color>
+    <color name="th_black_text_secondary">#5C5C5C</color>
+    <color name="th_black_text_disabled">#A8A8AA</color>
+    <color name="th_black_border">#D8D8DA</color>
+    <color name="th_black_border_focus">#1A1A1A</color>
+    <color name="th_black_input_bg">#FFFFFF</color>
+    <color name="th_black_input_stroke">#B0B0B0</color>
+    <color name="th_black_gradient_start">#1A1A1A</color>
+    <color name="th_black_gradient_end">#3C3C3C</color>
+    <color name="th_black_glow">#401A1A1A</color>
+    <color name="th_black_ripple">#301A1A1A</color>
+</resources>

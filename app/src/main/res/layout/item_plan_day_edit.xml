@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    计划编辑页 · 单个训练日分组卡片
+    包含：部位标签（多选 chip，如 胸部/肩部）+ 休息日开关 + 动作列表容器 + 添加动作按钮 + 删除整日按钮
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutDaySection"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="14dp"
+    android:background="@drawable/bg_day_card"
+    android:orientation="vertical"
+    android:padding="14dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewDayIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="第 1 天"
+            android:textColor="?attr/bcPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/buttonRemoveDay"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="删除该训练日"
+            android:padding="4dp"
+            android:src="@drawable/ic_close_thin" />
+    </LinearLayout>
+
+    <!-- 训练日部位标签（可多选，选中后自动组成日名，如 胸部+肩部） -->
+    <TextView
+        android:id="@+id/textViewDayTagsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="训练日部位（可多选）"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/bcPrimary" />
+
+    <HorizontalScrollView
+        android:id="@+id/scrollViewDayTags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupDayTags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true" />
+    </HorizontalScrollView>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchRestDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="设为休息日"
+        android:textColor="?attr/bcPrimary"
+        app:thumbTint="@color/switch_thumb_bc"
+        app:trackTint="@color/switch_track_bc" />
+
+    <TextView
+        android:id="@+id/textViewDayItemsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="动作"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="?attr/bcPrimary" />
+
+    <!-- 本日动作条目容器 -->
+    <LinearLayout
+        android:id="@+id/containerDayItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:orientation="vertical" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonAddItem"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+ 添加动作"
+        android:textColor="?attr/bcPrimary" />
+
+</LinearLayout>

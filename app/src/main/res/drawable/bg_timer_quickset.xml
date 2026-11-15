@@ -2,9 +2,9 @@
 <!-- 计时器快速设置按钮：深蓝细边框 + 极浅蓝底 + 圆角 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/bc_primary_pale" />
+    <solid android:color="?attr/bcPrimaryPale" />
     <stroke
         android:width="1.5dp"
-        android:color="@color/bc_primary" />
+        android:color="?attr/bcPrimary" />
     <corners android:radius="14dp" />
 </shape>

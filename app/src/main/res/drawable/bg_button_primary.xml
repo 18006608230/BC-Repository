@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 主按钮：低饱和蓝色渐变 + 14dp 圆角 + 极淡蓝色外发光 -->
+<!--
+    主按钮：深色主题色纯色 + 外圈一圈浅色主题色 + 14dp 圆角
+
+    原来是「左深右浅」的渐变（bcGradientStart → bcGradientEnd）。
+    现改为：主体填 bcPrimaryDark 纯色，外层用 bcPrimaryLight 并通过 padding
+    让主体内缩 2dp，露出一圈浅色描边。
+    全部用主题属性，7 套主题自动跟随。
+-->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="#33FFFFFF">
 
     <item>
         <layer-list>
-            <!-- 外发光层（淡蓝弥散） -->
+            <!-- 外圈：浅色主题色 -->
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="@color/bc_glow" />
-                    <corners android:radius="14dp" />
+                    <solid android:color="?attr/bcPrimaryLight" />
+                    <corners android:radius="16dp" />
                     <padding
-                        android:bottom="3dp"
-                        android:left="3dp"
-                        android:right="3dp"
-                        android:top="3dp" />
+                        android:bottom="2dp"
+                        android:left="2dp"
+                        android:right="2dp"
+                        android:top="2dp" />
                 </shape>
             </item>
-            <!-- 渐变主体 -->
+            <!-- 主体：深色主题色纯色 -->
             <item>
                 <shape android:shape="rectangle">
-                    <gradient
-                        android:angle="0"
-                        android:endColor="@color/bc_gradient_end"
-                        android:startColor="@color/bc_gradient_start" />
+                    <solid android:color="?attr/bcPrimaryDark" />
                     <corners android:radius="14dp" />
                 </shape>
             </item>

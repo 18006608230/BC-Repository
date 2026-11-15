@@ -1,9 +1,10 @@
 package com.bc.app.ui.calendar
 
+import com.bc.app.ui.base.BaseActivity
+
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bc.app.data.db.BrawnCatalogDatabase
@@ -27,7 +28,7 @@ import java.util.Locale
  *  - 传入 planId（可选 dayId）：按计划（或某训练日）执行
  *  - 传入 exerciseIds：日历单日自由选动作执行
  */
-class WorkoutActivity : AppCompatActivity() {
+class WorkoutActivity : BaseActivity() {
 
     companion object {
         const val EXTRA_PLAN_ID = "extra_plan_id"

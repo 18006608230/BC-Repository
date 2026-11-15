@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="组间休息"
+        android:textColor="?attr/bcPrimary"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +41,7 @@
         android:maxLines="1"
         android:singleLine="true"
         android:text="01:30"
-        android:textColor="@color/bc_primary"
+        android:textColor="?attr/bcPrimary"
         android:textSize="88sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,17 +81,31 @@
 
     </LinearLayout>
 
+    <!-- 后台运行提示：计时中才显示（用 invisible 占位，避免切换时布局跳动） -->
+    <TextView
+        android:id="@+id/textViewTimerHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="计时在后台继续，可下拉通知栏查看"
+        android:textColor="?attr/bcTextSecondary"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutTimerButtons" />
+
     <TextView
         android:id="@+id/textViewQuickSet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="20dp"
         android:text="快速设置"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutTimerButtons" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTimerHint" />
 
     <!-- 快速设置第一行：30s / 60s / 90s（深蓝细边框 + 极浅蓝底 + 深蓝数字，缩小更灵动） -->
     <LinearLayout
@@ -115,7 +130,7 @@
             android:insetBottom="0dp"
             android:text="30s"
             android:textAllCaps="false"
-            android:textColor="@color/bc_primary"
+            android:textColor="?attr/bcPrimary"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -130,7 +145,7 @@
             android:insetBottom="0dp"
             android:text="60s"
             android:textAllCaps="false"
-            android:textColor="@color/bc_primary"
+            android:textColor="?attr/bcPrimary"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -144,7 +159,7 @@
             android:insetBottom="0dp"
             android:text="90s"
             android:textAllCaps="false"
-            android:textColor="@color/bc_primary"
+            android:textColor="?attr/bcPrimary"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -173,7 +188,7 @@
             android:insetBottom="0dp"
             android:text="2min"
             android:textAllCaps="false"
-            android:textColor="@color/bc_primary"
+            android:textColor="?attr/bcPrimary"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -188,7 +203,7 @@
             android:insetBottom="0dp"
             android:text="3min"
             android:textAllCaps="false"
-            android:textColor="@color/bc_primary"
+            android:textColor="?attr/bcPrimary"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -202,10 +217,63 @@
             android:insetBottom="0dp"
             android:text="5min"
             android:textAllCaps="false"
-            android:textColor="@color/bc_primary"
+            android:textColor="?attr/bcPrimary"
             android:textSize="14sp"
             android:textStyle="bold" />
 
+    </LinearLayout>
+
+    <!-- 省电白名单引导：由代码判断是否显示（已加白名单或用户点过「知道了」则隐藏） -->
+    <LinearLayout
+        android:id="@+id/layoutBatteryHint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="?attr/bcPrimaryPale"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutQuickSet2">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="训练时手机常常锁屏，系统可能会清理后台进程，导致倒计时中断或收不到提醒。"
+            android:textColor="?attr/bcTextPrimary"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonBatteryDismiss"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:text="知道了"
+                android:textAllCaps="false"
+                android:textColor="?attr/bcTextSecondary"
+                android:textSize="13sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonBatterySettings"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:minHeight="40dp"
+                android:text="去设置"
+                android:textAllCaps="false"
+                android:textColor="?attr/bcPrimary"
+                android:textSize="13sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

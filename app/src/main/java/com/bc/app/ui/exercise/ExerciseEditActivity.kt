@@ -1,10 +1,13 @@
 package com.bc.app.ui.exercise
 
+import com.bc.app.ui.base.BaseActivity
+
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import com.bc.app.data.db.BrawnCatalogDatabase
 import com.bc.app.data.entity.BodyPart
@@ -12,15 +15,19 @@ import com.bc.app.data.entity.Exercise
 import com.bc.app.data.repository.BodyPartRepository
 import com.bc.app.data.repository.ExerciseRepository
 import com.bc.app.databinding.ActivityExerciseEditBinding
+import com.bc.app.utils.loadExerciseImage
 import com.google.android.material.chip.Chip
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
 
 /**
  * 新建/编辑动作页
  * - 新建自定义动作：可改部位 + 子分类
  * - 编辑已有动作（预存/自定义）：可改名称、要领、子分类
  */
-class ExerciseEditActivity : AppCompatActivity() {
+class ExerciseEditActivity : BaseActivity() {
 
     companion object {
         const val EXTRA_EXERCISE_ID = "extra_exercise_id"
@@ -38,6 +45,14 @@ class ExerciseEditActivity : AppCompatActivity() {
 
     // 当前编辑的动作（null = 新建）
     private var editingExercise: Exercise? = null
+
+    // 当前配图路径：数据集为 assets 文件名，自定义为应用私有目录绝对路径，空表示无图
+    private var currentImagePath: String = ""
+
+    // 从相册选择图片（仅读一次并拷贝到应用私有目录，无需存储权限）
+    private val pickImageLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? -> importImageFromUri(uri) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +75,47 @@ class ExerciseEditActivity : AppCompatActivity() {
 
         // 新建动作时可选部位；有氧子分类下钻时锁定子分类
         loadData(exerciseId, presetBodyPartId, lockSubcategory)
+        setupImageControls()
+    }
+
+    private fun setupImageControls() {
+        binding.buttonImportImage.setOnClickListener {
+            pickImageLauncher.launch("image/*")
+        }
+        binding.buttonClearImage.setOnClickListener {
+            currentImagePath = ""
+            binding.imageViewPreview.loadExerciseImage("")
+        }
+    }
+
+    /**
+     * 将相册选中的图片拷贝到应用私有目录 filesDir/exercise_images/，
+     * 并把绝对路径写入 currentImagePath（保存时落库）。
+     */
+    private fun importImageFromUri(uri: Uri?) {
+        if (uri == null) return
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val dir = File(filesDir, "exercise_images")
+                if (!dir.exists()) dir.mkdirs()
+                val dest = File(dir, "custom_${System.currentTimeMillis()}.jpg")
+                contentResolver.openInputStream(uri)?.use { input ->
+                    dest.outputStream().use { output -> input.copyTo(output) }
+                }
+                currentImagePath = dest.absolutePath
+                withContext(Dispatchers.Main) {
+                    binding.imageViewPreview.loadExerciseImage(currentImagePath)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@ExerciseEditActivity,
+                        "导入图片失败：${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun loadData(exerciseId: Long, presetBodyPartId: Long, lockSubcategory: String?) {
@@ -87,7 +143,12 @@ class ExerciseEditActivity : AppCompatActivity() {
             // 预填编辑数据
             editingExercise?.let { ex ->
                 binding.editExerciseName.setText(ex.name)
-                binding.editExerciseTips.setText(ex.tips)
+                // 要领输入框预填“实际展示给用户的要领”（优先用户 tips，否则数据集分步说明），
+                // 避免数据集动作打开编辑时要领框空白、造成“要领丢失”的错觉。
+                binding.editExerciseTips.setText(ex.displayTips())
+                // 预填当前配图（数据集 GIF 文件名或自定义图片绝对路径）
+                currentImagePath = ex.imagePath
+                binding.imageViewPreview.loadExerciseImage(ex.imagePath)
                 if (lockSubcategory.isNullOrEmpty()) {
                     refreshSubcategoryChips(ex.subcategory)
                 }
@@ -176,14 +237,15 @@ class ExerciseEditActivity : AppCompatActivity() {
                         name = name,
                         tips = tips,
                         subcategory = sub,
-                        isCustom = true
+                        isCustom = true,
+                        imagePath = currentImagePath
                     )
                 )
                 Toast.makeText(this@ExerciseEditActivity, "已创建动作「$name」", Toast.LENGTH_SHORT).show()
             } else {
-                // 编辑
+                // 编辑（保留 imagePath：数据集 GIF 文件名或刚导入的自定义图片路径）
                 exerciseRepository.update(
-                    existing.copy(name = name, tips = tips, subcategory = sub)
+                    existing.copy(name = name, tips = tips, subcategory = sub, imagePath = currentImagePath)
                 )
                 Toast.makeText(this@ExerciseEditActivity, "已保存修改", Toast.LENGTH_SHORT).show()
             }
